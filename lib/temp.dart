@@ -9,19 +9,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // home: Text('안녕'),
-      // home: Icon(Icons.zoom_in),
+        // home: Text('안녕'),
+        // home: Icon(Icons.zoom_in),
         home: Scaffold(
-          // appBar
           // appBar: AppBar(title: Text('앱 제목')),
-
-
-          // NOTE: 중단 아이콘들을 정렬하는 방법
-          // body: Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //   // crossAxisAlignment: CrossAxisAlignment.stretch,
-          //   children: [Icon(Icons.star), Icon(Icons.star), Icon(Icons.star)],
-          // ),
 
           // NOTE: Box design - 박스 생성 및 margin, padding 설정, 박스 안 글자 입력
           // body: Container(
@@ -51,7 +42,7 @@ class MyApp extends StatelessWidget {
           //   ),
           // ),
 
-          // // NOTE: Box design - 위치 조정 우상단, 세밀한 위치조절은 margin 으로 설정하기
+          // // NOTE: Box design - 위치 조정 우상단, 세밀한 위치조절은 margin 설정하기
           // body: Align(
           //   alignment: Alignment.topRight,
           //   child: Container(
