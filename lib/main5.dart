@@ -42,22 +42,57 @@ class MyPage extends StatelessWidget {
           padding:const  EdgeInsets.all(20),
           children: [
             UserAccountsDrawerHeader(
+              otherAccountsPictures: const [
+                CircleAvatar(
+                  backgroundImage: AssetImage('assets/dog1.jpg'),
+                  backgroundColor: Colors.white,
+                ),
+                CircleAvatar(
+                  backgroundImage: AssetImage('assets/dog1.jpg'),
+                  backgroundColor: Colors.white,
+                ),
+              ],
               currentAccountPicture: const CircleAvatar(
                 backgroundImage: AssetImage('assets/dog1.jpg'),
                 backgroundColor: Colors.white,
               ),
-                accountName: Text('Min JH'),
-                accountEmail: Text('krism01@naver.com'),
+                accountName: const Text('Min JH'),
+                accountEmail: const Text('krism01@naver.com'),
               decoration: BoxDecoration(
                 color: Colors.red[200],
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(40)),
               ),
               onDetailsPressed: () {
                 print('arrow is clicked');
               },
             ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Home'),
+              trailing: Icon(Icons.add),
+              onLongPress: () {
+                print('home');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('setting'),
+              trailing: Icon(Icons.add),
+              onTap: () {
+                print('settings');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.question_answer),
+              title: Text('question'),
+              trailing: Icon(Icons.add),
+              onTap: () {
+                print('question');
+              },
+            ),
           ],
+
         ),
       ),
     );
