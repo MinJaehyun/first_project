@@ -27,6 +27,17 @@ class MyPage extends StatelessWidget {
         title: Text('Snack bar'),
         centerTitle: true,
       ),
+      body: Center(
+        child: ElevatedButton(
+          // btn name
+          child: Text('Btn'),
+          // 클릭 시 text 출력
+          onPressed: () {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Hello2')));
+          },
+        ),
+      ),
     );
   }
 }
