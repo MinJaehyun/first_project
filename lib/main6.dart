@@ -33,8 +33,19 @@ class MyPage extends StatelessWidget {
           child: Text('Btn'),
           // 클릭 시 text 출력
           onPressed: () {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Hello2')));
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  'Hello',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                backgroundColor: Colors.teal,
+                duration: Duration(milliseconds: 10000),
+              ),
+            );
           },
         ),
       ),
