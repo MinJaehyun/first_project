@@ -27,13 +27,6 @@ class MyPage extends StatelessWidget {
       appBar: AppBar(
           title: Text('AppBar Icon Menu'),
         centerTitle: true,
-        // leading: Icon(Icons.menu),
-        leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              print('menu btn is clicked');
-            },
-        ),
         elevation: 0.0,
         actions: [
           IconButton(onPressed: () {
@@ -43,6 +36,29 @@ class MyPage extends StatelessWidget {
             print('shopping_cart btn is clicked');
           }, icon: const Icon(Icons.search)),
         ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding:const  EdgeInsets.all(20),
+          children: [
+            UserAccountsDrawerHeader(
+              currentAccountPicture: const CircleAvatar(
+                backgroundImage: AssetImage('assets/dog1.jpg'),
+                backgroundColor: Colors.white,
+              ),
+                accountName: Text('Min JH'),
+                accountEmail: Text('krism01@naver.com'),
+              decoration: BoxDecoration(
+                color: Colors.red[200],
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(40)),
+              ),
+              onDetailsPressed: () {
+                print('arrow is clicked');
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
