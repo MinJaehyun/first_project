@@ -55,12 +55,14 @@ class ContextBody extends StatelessWidget {
           // logo
 
            Center(
+             // NOTE: CircleAvatar
             child: CircleAvatar(
-              backgroundImage: const AssetImage('assets/puldaLogo.png'),
+              backgroundImage: const AssetImage('assets/camera1.jpg'),
               radius: 60.0,
               backgroundColor: Colors.amber[200],
             ),
           ),
+          // NOTE: 구분선
           const Divider(
             height: 60,
             indent: 50,
