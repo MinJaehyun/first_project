@@ -24,8 +24,6 @@ class MyPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Toast Message'),
-        // backgroundColor: Colors.transparent,
-
         centerTitle: true,
       ),
       body: Center(
@@ -43,13 +41,12 @@ class MyPage extends StatelessWidget {
 
 void flutterToast() {
   Fluttertoast.showToast(
-      // showToast 의 내장 색상을 연한파란색으로 덮어씌우기
-      webBgColor: "linear-gradient()",
-      msg: "This is Center Short Toast",
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 3,
-      // backgroundColor: Colors.blue, // TODO: ???
-      textColor: Colors.white,
-      fontSize: 30.0);
+    msg: "This is Center Short Toast",
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.TOP,
+    timeInSecForIosWeb: 3,
+    backgroundColor: Colors.teal,
+    textColor: Colors.white,
+    fontSize: 18.0,
+  );
 }
