@@ -19,12 +19,11 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(),
       backgroundColor: Colors.cyan,
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
               color: Colors.redAccent,
@@ -55,7 +54,6 @@ class MyPage extends StatelessWidget {
           ],
         ),
       ),
-
     );
   }
 }
