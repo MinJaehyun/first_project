@@ -39,6 +39,10 @@ dependencies:
   fluttertoast: ^8.1.2
   introduction_screen: ^3.1.1
   like_button: ^2.0.5
+  geolocator: ^9.0.2
+  http: ^0.13.5
+  flutter_dotenv: ^5.0.2
+
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +75,7 @@ flutter:
     - assets/main16/
     - assets/main16/dice/
     - assets/main17/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
