@@ -2,8 +2,9 @@ import 'package:first_project/main22/loading/loading.dart';
 import 'package:flutter/material.dart';
 import '../network/network.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-String apiKey = dotenv.get('WEATHER_APIKEY');
+import '../weather_page/weather_page.dart';
 
+String apiKey = dotenv.get('WEATHER_APIKEY');
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -24,9 +25,15 @@ class _MyPageState extends State<MyPage> {
 
     // fetchData
     Network parsingData = Network(
-        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude3&lon=$longitude3&appid=$apiKey');
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude3&lon=$longitude3&appid=$apiKey&units=metric');
     var weatherData = await parsingData.fetchData();
-    print(weatherData);
+    // print('weatherData: $weatherData');
+
+    // Do not use BuildContexts across async gaps
+    if (!mounted) return;
+    // 앱 실행 시, 날씨 페이지로 이동
+    Navigator.push(context, MaterialPageRoute(
+        builder: (context) => WeatherPage(parsingData: weatherData)));
   }
 
   @override
@@ -44,32 +51,7 @@ class _MyPageState extends State<MyPage> {
       ),
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Text(
-                ('$longitude3'),
-                style: const TextStyle(fontSize: 35),
-              ),
-              const Divider(
-                height: 20,
-                thickness: 3,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    // fetchData();
-                  },
-                  child: const Text('http get')),
-              Text(
-                // (response?.body).toString(),
-                ('test fetch'),
-                style: const TextStyle(fontSize: 35),
-              ),
-              const Divider(
-                height: 20,
-                thickness: 3,
-              ),
-            ],
-          ),
+          child: Column(),
         ),
       ),
     );
