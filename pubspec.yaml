@@ -43,6 +43,7 @@ dependencies:
   http: ^0.13.5
   flutter_dotenv: ^5.0.2
   intl: ^0.18.0
+  timer_builder: ^2.0.0
 
 dev_dependencies:
   flutter_test:

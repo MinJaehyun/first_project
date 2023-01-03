@@ -1,9 +1,9 @@
-import 'dart:convert';
+import 'package:first_project/main23/location/location.dart';
+import 'package:first_project/main23/network/network.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:timer_builder/timer_builder.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({Key? key}) : super(key: key);
@@ -13,16 +13,13 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
+  double? latitude3;
+  double? longitude3;
   String weatherApiKey = dotenv.get('WEATHER_APIKEY');
-  double? latitude2;
-  double? longitude2;
   dynamic jsonData;
   String? cityName;
   int? temperature;
-  DateTime? now;
-  String? formatDate3;
-  String? day;
-  String? ymd;
+  DateTime now = DateTime.now();
 
   @override
   void initState() {
@@ -36,46 +33,27 @@ class _WeatherPageState extends State<WeatherPage> {
     await fetchData();
   }
 
-  // 위도,경도 가져오기
+  // // 위도,경도 가져오기
   Future<void> getLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    latitude2 = position.latitude;
-    longitude2 = position.longitude;
-    // print('1: $latitude2');
+    MyLocation myLocation = MyLocation();
+    await myLocation.getLocation();
+    latitude3 = myLocation.latitude2;
+    longitude3 = myLocation.longitude2;
   }
 
   // fetchData
   Future<void> fetchData() async {
-    // 서버에서 데이터 가져오려면 ? http 패키지 설정하기
-    // var url = Uri.parse('https://samples.openweathermap.org/data/2.5/weather?q=London&appid=b1b15e88fa797225412429c1c50c122a1');
-    // var url = Uri.parse('https://api.openweathermap.org/data/2.5/weather?lat=$latitude2&lon=$longitude2&appid=$weatherApiKey');
-    // print('2: $latitude2');
-    http.Response response = await http.get(Uri.parse(
-        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude2&lon=$longitude2&appid=$weatherApiKey&units=metric'));
-    // print();
-    if (response.statusCode == 200) {
-      // response.body 는 jsonData, jsonDecode 처리된 jsonData는 obj
-      jsonData = jsonDecode(response.body);
-      // print(jsonData);
-    } else {
-      throw Exception('Failed to load weather');
-    }
-
+    Network network = Network(
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude3&lon=$longitude3&appid=$weatherApiKey&units=metric');
+    jsonData = await network.fetchData();
     setState(() {
       cityName = jsonData['name'];
       temperature = jsonData['main']['temp'].round();
-
-      // 시간 설정
-      now = DateTime.now(); //  2023-01-03 17:03:11.107009
-      // String formatDate = DateFormat('yy/MM/dd - HH:mm:ss').format(now!); // 23/01/03 - 17:02:46
-      // String formatDate2 = DateFormat('HH:mm').format(now!);
-      formatDate3 = DateFormat.jm().format(now!);
-
-      // 요일 설정
-      ymd = DateFormat.yMMMMd('en_US').format(now!); // Tue, 1/3/2023
-      day = DateFormat('EEEE').format(now!); // Tuesday
     });
+  }
+
+  String? getDataTime() {
+    return DateFormat.jm().format(now);
   }
 
   @override
@@ -112,20 +90,26 @@ class _WeatherPageState extends State<WeatherPage> {
             // 날짜
             const SizedBox(height: 155),
             Text(
-              '$day',
+              DateFormat('EEEE').format(now),
               style: const TextStyle(color: Colors.white, fontSize: 20),
             ),
             // 요일
             const SizedBox(height: 5),
             Text(
-              '$ymd',
+              DateFormat.yMMMMd('en_US').format(now), // Tue, 1/3/2023,
               style: const TextStyle(color: Colors.white, fontSize: 20),
             ),
             // 시간
             const SizedBox(height: 15),
-            Text(
-              '$formatDate3',
-              style: const TextStyle(color: Colors.white, fontSize: 20),
+            TimerBuilder.periodic(
+              const Duration(minutes: 1),
+              builder: (BuildContext context) {
+                // print('');
+                return Text(
+                  '${getDataTime()}',
+                  style: const TextStyle(color: Colors.white, fontSize: 25),
+                );
+              },
             ),
           ],
         ),
