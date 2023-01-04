@@ -1,7 +1,9 @@
 import 'package:first_project/main23/location/location.dart';
+import 'package:first_project/main23/model/model.dart';
 import 'package:first_project/main23/network/network.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:timer_builder/timer_builder.dart';
 
@@ -13,12 +15,11 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  double? latitude3;
-  double? longitude3;
   String weatherApiKey = dotenv.get('WEATHER_APIKEY');
+  double? latitude3, longitude3;
   dynamic jsonData;
-  String? cityName;
-  int? temperature;
+  String? cityName, svgPath;
+  int? temperature, weatherConditionId;
   DateTime now = DateTime.now();
 
   @override
@@ -27,7 +28,7 @@ class _WeatherPageState extends State<WeatherPage> {
     all();
   }
 
-  // initState 에서 async 처리 안되므로 함수안에서 aysnc 처리되도록 설정함
+  // initState 에서 async 처리 안되므로 함수안에서 async 처리되도록 설정함
   Future<void> all() async {
     await getLocation();
     await fetchData();
@@ -46,10 +47,17 @@ class _WeatherPageState extends State<WeatherPage> {
     Network network = Network(
         'https://api.openweathermap.org/data/2.5/weather?lat=$latitude3&lon=$longitude3&appid=$weatherApiKey&units=metric');
     jsonData = await network.fetchData();
+    // print(jsonData);
+
     setState(() {
       cityName = jsonData['name'];
       temperature = jsonData['main']['temp'].round();
+      weatherConditionId = jsonData['weather'][0]['id'];
+      // print(weatherConditionId);
     });
+
+    Model icon = Model();
+    svgPath = icon.getWeatherIcon(weatherConditionId!);
   }
 
   String? getDataTime() {
@@ -80,9 +88,19 @@ class _WeatherPageState extends State<WeatherPage> {
               style: const TextStyle(fontSize: 40, color: Colors.white),
             ),
             const SizedBox(height: 25),
-            // TODO: 조건에 따른 날씨를 SVG로 나타내기
 
-            // 온도: unicode \U+2103을 flutter에서는 소문자로 +제거하고 사용함
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('$svgPath'),
+                const Text(
+                  'sun',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ],
+            ),
+
+            // 온도: unicode \U+2103을 flutter 는 소문자로 +제거하고 사용함
             Text(
               '$temperature\u2103',
               style: const TextStyle(fontSize: 40, color: Colors.white),
