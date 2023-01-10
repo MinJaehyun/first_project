@@ -1,9 +1,8 @@
 import 'package:first_project/main24/palette/palette.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 import 'chat_screen/chat_screen.dart';
 
 void main() async {
@@ -41,16 +40,14 @@ class _MyPageState extends State<MyPage> {
     final isValid = _formKey.currentState!.validate();
     if (isValid) {
       _formKey.currentState!.save();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            '회원가입에 성공하셨습니다.',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.blueGrey,
-        ),
-      );
     }
+  }
+
+  // Login -> Signup 이동 시에(key: const ValueKey(4)활용) 로그아웃 시, 기존 login 내용 안 보이게 설정함
+  void changeIsSignup() {
+    setState(() {
+      isSignupScreen = !isSignupScreen;
+    });
   }
 
   @override
@@ -102,7 +99,7 @@ class _MyPageState extends State<MyPage> {
                   Text(
                     isSignupScreen
                         ? 'Signup to continue'
-                        : 'Signin to continue',
+                        : 'SignIn to continue',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 25,
@@ -217,7 +214,7 @@ class _MyPageState extends State<MyPage> {
                           child: Column(
                             children: [
                               TextFormField(
-                                autovalidateMode: AutovalidateMode.always,
+                                // autovalidateMode: AutovalidateMode.always,
                                 onSaved: (newValue) {
                                   userName = newValue!;
                                 },
@@ -253,7 +250,7 @@ class _MyPageState extends State<MyPage> {
                               ),
                               const SizedBox(height: 15),
                               TextFormField(
-                                autovalidateMode: AutovalidateMode.always,
+                                // autovalidateMode: AutovalidateMode.always,
                                 onSaved: (newValue) {
                                   userEmail = newValue!;
                                 },
@@ -289,6 +286,7 @@ class _MyPageState extends State<MyPage> {
                               ),
                               const SizedBox(height: 15),
                               TextFormField(
+                                // autovalidateMode: AutovalidateMode.always,
                                 obscureText: true,
                                 onSaved: (newValue) {
                                   userPassword = newValue!;
@@ -452,15 +450,25 @@ class _MyPageState extends State<MyPage> {
                             .createUserWithEmailAndPassword(
                                 email: userEmail, password: userPassword);
                         if (newUser.user != null) {
+                          // ignore: use_build_context_synchronously
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const ChatScreen(),
                             ),
                           );
+                          changeIsSignup();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                '회원가입에 성공하셨습니다.',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              backgroundColor: Colors.blueGrey,
+                            ),
+                          );
                         }
                       } catch (e) {
-                        print(e);
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content:
@@ -469,8 +477,43 @@ class _MyPageState extends State<MyPage> {
                           ),
                         );
                       }
-                    } else if (!isSignupScreen) {
-                      // TODO: login 상태인 경우,
+                    }
+                    if (!isSignupScreen) {
+                      // login 인 경우
+                      _tryValidation();
+
+                      try {
+                        final newUser = await _authentication.signInWithEmailAndPassword(
+                            email: userEmail, password: userPassword);
+                        // print(newUser);
+                        // print('newUser.user: ${newUser.user}');
+                        if(newUser.user != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChatScreen(),
+                            ),
+                          );
+                          changeIsSignup();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                '로그인에 성공하셨습니다.',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              backgroundColor: Colors.blueGrey,
+                            ),
+                          );
+                        }
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content:
+                            Text('Please check your email and password :)'),
+                            backgroundColor: Colors.blue,
+                          ),
+                        );
+                      }
                     }
                     // print(userName);
                   },
@@ -503,7 +546,7 @@ class _MyPageState extends State<MyPage> {
             child: Column(
               children: [
                 Text(
-                  isSignupScreen ? 'or Signup with' : 'or Signin with',
+                  isSignupScreen ? 'or Signup with' : 'or SignIn with',
                   style: const TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 // mainAxisAlignment: MainAxisAlignment.start,
