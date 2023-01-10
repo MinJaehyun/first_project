@@ -42,7 +42,10 @@ dependencies:
   geolocator: ^9.0.2
   http: ^0.13.5
   flutter_dotenv: ^5.0.2
-
+  intl: ^0.18.0
+  timer_builder: ^2.0.0
+  google_fonts: ^3.0.1
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +79,9 @@ flutter:
     - assets/main16/dice/
     - assets/main17/
     - .env
+    - assets/main23/svg/
+    - assets/main24/
+    - test/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
