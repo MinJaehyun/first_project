@@ -1,7 +1,14 @@
 import 'package:first_project/main24/palette/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+import 'chat_screen/chat_screen.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -24,6 +31,7 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   bool isSignupScreen = true;
   final _formKey = GlobalKey<FormState>();
+  final _authentication = FirebaseAuth.instance;
   String userName = '';
   String userEmail = '';
   String userPassword = '';
@@ -42,7 +50,6 @@ class _MyPageState extends State<MyPage> {
           backgroundColor: Colors.blueGrey,
         ),
       );
-      // TODO: 회원가입 성공 후 이동할 페이지 설정하기
     }
   }
 
@@ -214,6 +221,9 @@ class _MyPageState extends State<MyPage> {
                                 onSaved: (newValue) {
                                   userName = newValue!;
                                 },
+                                onChanged: (value) {
+                                  userName = value;
+                                },
                                 validator: (value) {
                                   if (value!.isEmpty || value.length < 4) {
                                     return 'Please enter at least 4 characters';
@@ -247,6 +257,9 @@ class _MyPageState extends State<MyPage> {
                                 onSaved: (newValue) {
                                   userEmail = newValue!;
                                 },
+                                onChanged: (value) {
+                                  userEmail = value;
+                                },
                                 validator: (value) {
                                   // 이메일은 @ 포함하지 않았거나 비었으면 확인
                                   if (value!.isEmpty || !value.contains('@')) {
@@ -279,6 +292,9 @@ class _MyPageState extends State<MyPage> {
                                 obscureText: true,
                                 onSaved: (newValue) {
                                   userPassword = newValue!;
+                                },
+                                onChanged: (value) {
+                                  userPassword = value;
                                 },
                                 validator: (value) {
                                   if (value!.isEmpty || value.length < 6) {
@@ -326,6 +342,9 @@ class _MyPageState extends State<MyPage> {
                                 onSaved: (newValue) {
                                   userEmail = newValue!;
                                 },
+                                onChanged: (value) {
+                                  userEmail = value;
+                                },
                                 validator: (value) {
                                   // 이메일은 @ 포함하지 않았거나 비었으면 확인
                                   if (value!.isEmpty || !value.contains('@')) {
@@ -358,6 +377,9 @@ class _MyPageState extends State<MyPage> {
                                 obscureText: true,
                                 onSaved: (newValue) {
                                   userPassword = newValue!;
+                                },
+                                onChanged: (value) {
+                                  userPassword = value;
                                 },
                                 validator: (value) {
                                   if (value!.isEmpty || value.length < 6) {
@@ -421,8 +443,36 @@ class _MyPageState extends State<MyPage> {
                   ],
                 ),
                 child: GestureDetector(
-                  onTap: () {
-                    _tryValidation();
+                  onTap: () async {
+                    if (isSignupScreen) {
+                      _tryValidation();
+
+                      try {
+                        final newUser = await _authentication
+                            .createUserWithEmailAndPassword(
+                                email: userEmail, password: userPassword);
+                        if (newUser.user != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChatScreen(),
+                            ),
+                          );
+                        }
+                      } catch (e) {
+                        print(e);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content:
+                                Text('Please check your email and password'),
+                            backgroundColor: Colors.blue,
+                          ),
+                        );
+                      }
+                    } else if (!isSignupScreen) {
+                      // TODO: login 상태인 경우,
+                    }
+                    // print(userName);
                   },
                   child: Container(
                     decoration: BoxDecoration(
