@@ -81,7 +81,7 @@ flutter:
     - .env
     - assets/main23/svg/
     - assets/main24/
-    - test/1
+    - test/1/1
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
