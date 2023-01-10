@@ -19,19 +19,40 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void getCurrentUser() {
-    try{
+    try {
       final user = _authentication.currentUser;
-      print(user);
-    }catch(e){
-      print(e);
+      // print(user);
+      loggerUser = user;
+    } catch (e) {
+      // print(e);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('chat screen', style: TextStyle(fontSize: 33),),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Chat sreen'),
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: () async {
+            // 회원탈퇴
+            // FirebaseAuth.instance.currentUser!.delete();
+            // TODO: user 제거 및 login page로 돌아가기
+            await FirebaseAuth.instance.signOut().then((result) => {
+              // print("test then result")
+            });
+            Navigator.pop(context);
+            // NOTE: 제일 처음으로 돌아가기
+            // Navigator.of(context).popUntil((route) => route.isFirst);
+          }, icon: const Icon(Icons.logout)),
+        ],
+      ),
+      body: const Center(
+        child: Text(
+          'chat screen',
+          style: TextStyle(fontSize: 33),
+        ),
       ),
     );
   }
