@@ -38,11 +38,9 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: [
           IconButton(
               onPressed: () async {
-                await FirebaseAuth.instance.signOut().then((result) =>
-                {
-                  // print("test then result")
-                });
-                Navigator.pop(context);
+                await FirebaseAuth.instance.signOut().then((result) => {
+                      // print("test then result")
+                    });
                 // NOTE 제일 처음으로 돌아가기: Navigator.of(context).popUntil((route) => route.isFirst);
                 // NOTE 회원탈퇴: FirebaseAuth.instance.currentUser!.delete();
               },
@@ -50,11 +48,13 @@ class _ChatScreenState extends State<ChatScreen> {
         ],
       ),
       body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection(
-              '/chats/pZaVfyO0YlsbF0VMyTLL/messages').snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          stream: FirebaseFirestore.instance
+              .collection('/chats/pZaVfyO0YlsbF0VMyTLL/messages')
+              .snapshots(),
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
             // 우선 처리해야 한다
-            if(snapshot.connectionState == ConnectionState.waiting) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
@@ -71,7 +71,6 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 );
               },
-
             );
           }),
     );
