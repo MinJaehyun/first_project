@@ -1,6 +1,6 @@
 import 'package:first_project/main24/palette/palette.dart';
 import 'package:flutter/material.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'chat_screen/chat_screen.dart';
@@ -17,7 +17,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(debugShowCheckedModeBanner: false, home: MyPage());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: ((context, snapshot) {
+          if (snapshot.hasData) {
+            return const ChatScreen();
+          }
+          return const MyPage();
+        }),
+      ),
+    );
   }
 }
 
@@ -43,13 +54,6 @@ class _MyPageState extends State<MyPage> {
     if (isValid) {
       _formKey.currentState!.save();
     }
-  }
-
-  // Login -> Signup 이동 시에(key: const ValueKey(4)활용) 로그아웃 시, 기존 login 내용 안 보이게 설정함
-  void changeIsSignup() {
-    setState(() {
-      isSignupScreen = !isSignupScreen;
-    });
   }
 
   @override
@@ -263,7 +267,8 @@ class _MyPageState extends State<MyPage> {
                                   },
                                   validator: (value) {
                                     // 이메일은 @ 포함하지 않았거나 비었으면 확인
-                                    if (value!.isEmpty || !value.contains('@')) {
+                                    if (value!.isEmpty ||
+                                        !value.contains('@')) {
                                       return 'Please enter a valid email address.';
                                     }
                                     return null;
@@ -349,7 +354,8 @@ class _MyPageState extends State<MyPage> {
                                   },
                                   validator: (value) {
                                     // 이메일은 @ 포함하지 않았거나 비었으면 확인
-                                    if (value!.isEmpty || !value.contains('@')) {
+                                    if (value!.isEmpty ||
+                                        !value.contains('@')) {
                                       return 'Please enter a valid email address.';
                                     }
                                     return null;
@@ -456,18 +462,24 @@ class _MyPageState extends State<MyPage> {
                           final newUser = await _authentication
                               .createUserWithEmailAndPassword(
                                   email: userEmail, password: userPassword);
+
+                          print(
+                              'newUser: $newUser'); // UserCredential(additionalUserInfo: AdditionalUserInfo())
+                          print(
+                              'newUser.user: ${newUser.user}'); // User(displayName: null, email: test4@email.com, emailVerified: false,  uid: zG9UABAJWYhP9nZ, ...)
+
+                          // Usage: https://firebase.flutter.dev/docs/firestore/usage/
+                          FirebaseFirestore.instance
+                              .collection('user')
+                              .doc(newUser.user!.uid)
+                              .set({
+                            'username': userName,
+                            'email': userEmail,
+                          });
                           if (newUser.user != null) {
-                            // ignore: use_build_context_synchronously
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ChatScreen(),
-                              ),
-                            );
                             setState(() {
                               isSpinner = false;
                             });
-                            changeIsSignup();
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text(
@@ -496,21 +508,14 @@ class _MyPageState extends State<MyPage> {
                         _tryValidation();
 
                         try {
-                          final newUser = await _authentication.signInWithEmailAndPassword(
-                              email: userEmail, password: userPassword);
-                          // print(newUser);
-                          // print('newUser.user: ${newUser.user}');
-                          if(newUser.user != null) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ChatScreen(),
-                              ),
-                            );
+                          final newUser =
+                              await _authentication.signInWithEmailAndPassword(
+                                  email: userEmail, password: userPassword);
+
+                          if (newUser.user != null) {
                             setState(() {
                               isSpinner = false;
                             });
-                            changeIsSignup();
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text(
@@ -524,8 +529,8 @@ class _MyPageState extends State<MyPage> {
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content:
-                              Text('Please check your email and password :)'),
+                              content: Text(
+                                  'Please check your email and password :)'),
                               backgroundColor: Colors.blue,
                             ),
                           );
@@ -547,8 +552,8 @@ class _MyPageState extends State<MyPage> {
                           stops: [0.0, 0.25, 0.5, 0.75, 1.0],
                         ),
                       ),
-                      child:
-                          const Icon(Icons.arrow_forward, color: Colors.white70),
+                      child: const Icon(Icons.arrow_forward,
+                          color: Colors.white70),
                     ),
                   ),
                 ),
