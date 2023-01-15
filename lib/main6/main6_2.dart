@@ -23,26 +23,25 @@ class MyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Snack Bar'),
+        title: const Text('Snack Bar'),
         centerTitle: true,
         elevation: 0.0,
       ),
       body: Center(
         child: ElevatedButton(
+          child: const Text('snack bar btn'),
           onPressed: () {
-            // print('clicked is btn');
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Row(
                   children: [
-                    Text('Hello'),
-                    Expanded(child: Container(height: 0)),
-                    CircularProgressIndicator(),
-                    // Text('Hello'),
+                    const Text('Hello'),
+                    Expanded(child: Container(height: 110)),
+                    // const CircularProgressIndicator(),
                   ],
                 ),
                 backgroundColor: Colors.amber,
-                duration: Duration(milliseconds: 3000),
+                duration: const Duration(milliseconds: 3000),
                 action: SnackBarAction(
                   label: 'UNDO',
                   textColor: Colors.teal,
@@ -51,8 +50,6 @@ class MyPage extends StatelessWidget {
               ),
             );
           },
-          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          child: Text('snack bar btn'),
         ),
       ),
       bottomNavigationBar: const BottomAppBar(),
