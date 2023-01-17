@@ -1,6 +1,6 @@
-import 'package:first_project/main15/animal_page.dart';
 import 'package:flutter/material.dart';
-import 'main15/animal_model.dart';
+import 'package:first_project/main15/animal_page.dart';
+import 'animal_model.dart';
 
 void main() => runApp(const MyApp());
 
@@ -43,8 +43,10 @@ class _MyPageState extends State<MyPage> {
     'jeju',
   ];
 
-  final List<Animal> animalData = List.generate(animalLocation.length,
-      (idx) => Animal(animalName[idx], animalPath[idx], animalLocation[idx]));
+  final List<Animal> animalData = List.generate(
+    animalLocation.length,
+    (idx) => Animal(animalName[idx], animalPath[idx], animalLocation[idx]),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +67,13 @@ class _MyPageState extends State<MyPage> {
                   child: Image.asset(animalData[index].imgPath),
                 ),
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
                       builder: (context) => AnimalPage(
-                            animal: animalData[index],
-                          )));
+                        animal: animalData[index],
+                      ),
+                    ),
+                  );
                 },
               ),
             );
