@@ -91,11 +91,9 @@ class _MyPageState extends State<MyPage> {
     await Future.delayed(duration).then((val) {
       setState(() {
         currentData = 'The data is fetched';
-      });
-    });
-    setState(() {
-      style = const TextStyle(fontSize: 22, color: Colors.green);
-    });
+        style = const TextStyle(fontSize: 22, color: Colors.green);
+      },);
+    },);
   }
 
   Future<String> myData() async {
