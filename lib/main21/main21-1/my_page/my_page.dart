@@ -21,9 +21,9 @@ class _MyPageState extends State<MyPage> {
       await Geolocator.requestPermission();
       position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      print(position);
+      debugPrint(position.toString());
     } catch (e) {
-      print('internet connection err');
+      debugPrint('internet connection err');
     }
   }
 
@@ -33,7 +33,7 @@ class _MyPageState extends State<MyPage> {
     response = await http.get(url);
     String? jsonData = response?.body;
     var myJson = jsonDecode(jsonData!)['weather'][0];
-    print(myJson);
+    debugPrint(myJson);
     return myJson;
   }
 
@@ -46,7 +46,7 @@ class _MyPageState extends State<MyPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('build start');
+    debugPrint('build start');
     return Scaffold(
       appBar: AppBar(
         title: const Text('MyPage'),
