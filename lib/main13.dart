@@ -14,43 +14,36 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class OnBoardingPage extends StatefulWidget {
+class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
 
-  @override
-  State<OnBoardingPage> createState() => _MyPageState();
-}
-
-class _MyPageState extends State<OnBoardingPage> {
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
         pages: [
           PageViewModel(
               title: "1st page",
-              body:
-                  "Welcome to the app! This is a description of how it works.",
+              body: "Welcome to the app! This is a description of how it works.",
               image: const Center(
                 child: Image(
                     image: AssetImage('assets/main13/image1.png'),
                     width: double.infinity),
               ),
-              // Note: 기존 PageDecoration() 위젯을 커스텀하게 getPageDecoration 작성하여 사용(하단에 재사용)
+              // Note: 기존 PageDecoration() 위젯을 커스텀
               decoration: getPageDecoration()),
           PageViewModel(
               title: "2nd page",
-              body:
-                  "Instead of having to buy an entire share, invest any amount you want.",
+              body: "Instead of having to buy an entire share, invest any amount you want.",
               image: const Center(
                 child: Image(
                     image: AssetImage('assets/main13/image2.png'),
                     width: double.infinity),
               ),
+              // Note: 기존 PageDecoration() 위젯을 사용
               decoration: const PageDecoration()),
           PageViewModel(
               title: "3rd page",
-              body:
-                  "Download the Stockpile app and master the market with our mini-lesson.",
+              body: "Download the Stockpile app and master the market with our mini-lesson.",
               image: const Center(
                 child: Image(
                     image: AssetImage('assets/main13/image3.png'),
@@ -73,27 +66,28 @@ class _MyPageState extends State<OnBoardingPage> {
         showSkipButton: true,
         dotsDecorator: DotsDecorator(
             color: Colors.cyan,
-            size: Size(10, 10),
-            activeSize: Size(22, 10),
+            size: const Size(10, 10),
+            activeSize: const Size(22, 10),
             activeShape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
             activeColor: Colors.red),
         curve: Curves.bounceInOut);
   }
 
-  // NOTE: 커스텀하게 페이지에 PageDecoration 설정하기
+  // NOTE: PageDecoration 커스텀
   PageDecoration getPageDecoration() {
     return const PageDecoration(
         titleTextStyle: TextStyle(
           fontSize: 28,
           fontWeight: FontWeight.bold,
         ),
-        bodyTextStyle: TextStyle(fontSize: 18, color: Colors.blue),
-        imagePadding: EdgeInsets.only(top: 40),
+        bodyTextStyle: TextStyle(fontSize: 18, color: Colors.white70),
+        imagePadding: EdgeInsets.only(top: 50),
         pageColor: Colors.orange);
   }
 }
 
+// note: MyPage
 class MyPage extends StatelessWidget {
   const MyPage({Key? key}) : super(key: key);
 
