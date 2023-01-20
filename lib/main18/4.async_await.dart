@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     showData();
@@ -25,7 +27,7 @@ void showData() async {
 
 void startTask() {
   String info1 = '시작';
-  print(info1);
+  debugPrint(info1);
 }
 
 Future<int> accessData() async {
@@ -33,7 +35,7 @@ Future<int> accessData() async {
   Duration time = const Duration(seconds: 10);
   await Future.delayed(time, () {
     account = 8500;
-    print(account);
+    debugPrint(account.toString());
   });
 
   return account;
@@ -41,5 +43,5 @@ Future<int> accessData() async {
 
 void fetchData(int account) {
   String info3 = '잔액은 $account만원 입니다.';
-  print(info3);
+  debugPrint(info3);
 }
