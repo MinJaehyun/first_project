@@ -28,8 +28,12 @@ class _MyPageState extends State<MyPage> {
     try {
       GetLocation getLocation = GetLocation();
       await getLocation.getLocation();
-      latitude3 = getLocation.latitude2;
-      longitude3 = getLocation.longitude2;
+      // latitude3 = getLocation.latitude2;
+      // longitude3 = getLocation.longitude2;
+
+      // getter
+      latitude3 = getLocation.latitude;
+      longitude3 = getLocation.longitude;
 
       String url = "https://api.openweathermap.org/data/2.5/weather?lat=$latitude3&lon=$longitude3&appid=$apiKey&units=metric";
 
