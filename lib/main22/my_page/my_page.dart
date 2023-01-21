@@ -27,11 +27,9 @@ class _MyPageState extends State<MyPage> {
     Network parsingData = Network(
         'https://api.openweathermap.org/data/2.5/weather?lat=$latitude3&lon=$longitude3&appid=$apiKey&units=metric');
     var weatherData = await parsingData.fetchData();
-    // print('weatherData: $weatherData');
 
     // Do not use BuildContexts across async gaps
     if (!mounted) return;
-    // 앱 실행 시, 날씨 페이지로 이동
     Navigator.push(context, MaterialPageRoute(
         builder: (context) => WeatherPage(parsingData: weatherData)));
   }

@@ -19,15 +19,12 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   void initState() {
     super.initState();
-    // print('widget.parseingData: ${widget.parsingData}');
     updateData(widget.parsingData);
   }
 
   void updateData(dynamic weatherData) {
       temp = weatherData['main']['temp'];
       cityName = weatherData['name']!;
-      print(cityName);
-      print(temp);
   }
 
   @override
