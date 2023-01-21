@@ -40,6 +40,7 @@ class _MyPageState extends State<MyPage> {
 
       Model model = Model(conditionId);
       loadSvg = model.getSvg();
+      // print(loadSvg);
     } catch (e) {
       debugPrint('getWeather err');
     }
