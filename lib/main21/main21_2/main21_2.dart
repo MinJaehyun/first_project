@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import '../main21_2/my_page/my_page.dart';
+import 'package:first_project/main21/main21_2/my_page/my_page.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -20,5 +20,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
