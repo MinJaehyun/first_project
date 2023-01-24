@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
 
 class MyPage extends StatelessWidget {
   MyPage({Key? key}) : super(key: key);
-  final myKey = GlobalKey<_CountState>();
+  final myKey = GlobalKey<_CountState>(); // 방법 1.
+  // GlobalKey<_CountState> myKey = GlobalKey(); // 방법 2.
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +60,9 @@ class _CountState extends State<Count> {
 
   @override
   Widget build(BuildContext context) {
-    return Text('data: $count');
+    return Text(
+      'data: $count',
+      style: const TextStyle(fontSize: 35),
+    );
   }
 }
