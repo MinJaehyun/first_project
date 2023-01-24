@@ -1,3 +1,4 @@
+import 'package:first_project/main23_global_key_separation/count_number/count_number.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
 
 class MyPage extends StatelessWidget {
   MyPage({Key? key}) : super(key: key);
-  final myKey = GlobalKey<_CountState>();
+  final myKey = GlobalKey<CountState>();
+  // note: 위젯을 파일로 나눴을 때, GlobalKey<_HomePageState> globalKey=GlobalKey()에서 _ (언더바) 사용하면 참조 못 한다.
 
   @override
   Widget build(BuildContext context) {
@@ -36,29 +38,5 @@ class MyPage extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
     );
-  }
-}
-
-class Count extends StatefulWidget {
-  const Count({Key? key}) : super(key: key);
-
-  @override
-  State<Count> createState() => _CountState();
-}
-
-class _CountState extends State<Count> {
-  int count = 0;
-
-  void countAdd() {
-    setState(
-      () {
-        count += 1;
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Text('data: $count');
   }
 }
