@@ -46,6 +46,7 @@ dependencies:
   timer_builder: ^2.0.0
   intl: ^0.18.0
   google_fonts: ^3.0.1
+  image_picker: ^0.8.6+1
 
 dev_dependencies:
   flutter_test:
