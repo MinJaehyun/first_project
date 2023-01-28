@@ -28,6 +28,28 @@ class _MyPageState extends State<MyPage> {
   List<User> _user = <User>[];
   bool isLoading = false;
 
+  Future<void> dialog(context, index) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Column(
+            children: [
+              Text(_user[index].name, style: const TextStyle(fontSize: 25, color: Colors.blue)),
+              Text(_user[index].email, style: const TextStyle(fontSize: 15, color: Colors.grey)),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -44,7 +66,8 @@ class _MyPageState extends State<MyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('User'),
+        title: Text(isLoading ? 'User' : 'loading...'),
+        centerTitle: true,
       ),
       body: ListView.builder(
         itemCount: _user.length,
@@ -53,7 +76,13 @@ class _MyPageState extends State<MyPage> {
             leading: const Icon(Icons.account_circle),
             title: Text(_user[index].name),
             subtitle: Text(_user[index].email),
-            trailing: const Icon(Icons.phone_android),
+            trailing: IconButton(
+              onPressed: () {
+                // 팝업창
+                dialog(context, index);
+              },
+              icon: const Icon(Icons.phone_android),
+            ),
           );
         },
       ),
