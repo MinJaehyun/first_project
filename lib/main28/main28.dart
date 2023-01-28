@@ -47,13 +47,13 @@ class _MyPageState extends State<MyPage> {
         title: const Text('User'),
       ),
       body: ListView.builder(
-        itemCount: 10,
+        itemCount: _user.length,
         itemBuilder: (context, index) {
-          return const ListTile(
-            leading: Icon(Icons.account_circle),
-            title: Text('mjh'),
-            subtitle: Text('krism01@naver.com'),
-            trailing: Icon(Icons.phone_android),
+          return ListTile(
+            leading: const Icon(Icons.account_circle),
+            title: Text(_user[index].name),
+            subtitle: Text(_user[index].email),
+            trailing: const Icon(Icons.phone_android),
           );
         },
       ),
