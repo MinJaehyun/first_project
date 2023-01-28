@@ -1,3 +1,5 @@
+import 'package:first_project/main28/service.dart';
+import 'package:first_project/main28/user.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -23,6 +25,21 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
+  List<User> _user = <User>[];
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // getInfo() 의 return 값은 user
+    Service.getInfo().then((value) {
+      setState(() {
+        _user = value;
+        isLoading = true;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
