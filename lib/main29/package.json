@@ -1,0 +1,16 @@
+{
+  "name": "main29",
+  "version": "1.0.0",
+  "description": "",
+  "main": "uploader.js",
+  "dependencies": {
+    "firebase": "^9.16.0",
+    "firebase-admin": "^11.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
