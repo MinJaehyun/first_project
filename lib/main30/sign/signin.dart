@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:first_project/main30/cloud_firestore_screen/cloud_firestore_screen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+// note: login & product create popup
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -51,7 +52,7 @@ class _LoginState extends State<Login> {
                   // note: sign in page
                   Column(
                     children: [
-                      // note: Email
+                      // note: email
                       TextField(
                         keyboardType: TextInputType.emailAddress,
                         controller: emailController,
@@ -139,11 +140,19 @@ class _LoginState extends State<Login> {
           MaterialPageRoute(builder: (_) => const CloudFirestoreScreen()),
         );
       }
-      setState(() {
-        isSpinner = false;
-      });
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+              'The password is invalid or the user does not have a password.'),
+          backgroundColor: Colors.blue,
+        ),
+      );
     }
+    // fix: 로딩 문제 해결
+    setState(() {
+      isSpinner = false;
+    });
   }
 }
