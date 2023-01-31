@@ -51,7 +51,7 @@ class _LoginState extends State<Login> {
                   // note: sign in page
                   Column(
                     children: [
-                      // note: Email
+                      // note: email
                       TextField(
                         keyboardType: TextInputType.emailAddress,
                         controller: emailController,
@@ -139,11 +139,19 @@ class _LoginState extends State<Login> {
           MaterialPageRoute(builder: (_) => const CloudFirestoreScreen()),
         );
       }
-      setState(() {
-        isSpinner = false;
-      });
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+              'The password is invalid or the user does not have a password.'),
+          backgroundColor: Colors.blue,
+        ),
+      );
     }
+    // fix: 로딩 문제 해결
+    setState(() {
+      isSpinner = false;
+    });
   }
 }
