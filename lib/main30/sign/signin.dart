@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:first_project/main30/cloud_firestore_screen/cloud_firestore_screen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+// note: login & product create popup
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
