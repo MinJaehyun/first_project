@@ -140,6 +140,9 @@ class _LoginState extends State<Login> {
           MaterialPageRoute(builder: (_) => const CloudFirestoreScreen()),
         );
       }
+      // todo: 편의상 개발 완료 후, 아래 내용 설정하기 note: 로그아웃 시, 계정 정보 삭제
+      // emailController.clear();
+      // passwordController.clear();
     } catch (e) {
       debugPrint(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(
