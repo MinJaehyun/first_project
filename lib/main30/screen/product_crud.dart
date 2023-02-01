@@ -36,7 +36,7 @@ class _ProductEditState extends State<ProductEdit> {
             child: Container(
               padding: const EdgeInsets.all(10),
               width: 100,
-              height: 160,
+              height: 170,
               child: Column(
                 children: [
                   Row(
@@ -45,7 +45,7 @@ class _ProductEditState extends State<ProductEdit> {
                       Text('Confirm'),
                     ],
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 15),
                   const Text('Do you really want to delete item?'),
                   const SizedBox(height: 15),
                   Row(
@@ -65,6 +65,7 @@ class _ProductEditState extends State<ProductEdit> {
                             debugPrint(e.toString());
                           }
                         },
+                        style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
                         child: const Text('Yes'),
                       ),
                       ElevatedButton(
@@ -91,7 +92,7 @@ class _ProductEditState extends State<ProductEdit> {
     return Card(
       child: ListTile(
         leading: IconButton(
-          icon: const Icon(Icons.production_quantity_limits),
+          icon: const Icon(Icons.person),
           onPressed: () {
             // todo: 2개의 컬렉션 가져오려면? Navigator.push 로 페이지 이동하여 body에 stream builder 설정?
           },
