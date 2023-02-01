@@ -1,3 +1,4 @@
+import 'package:first_project/main30/sign/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -50,66 +51,66 @@ class _LoginState extends State<Login> {
                   ),
                   const SizedBox(height: 35),
                   // note: sign in page
-                  Column(
+                  TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    controller: emailController,
+                    decoration: InputDecoration(
+                      hintText: "Email",
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: Colors.white12),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: Colors.white12),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  // note: Password
+                  TextField(
+                    obscureText: true,
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      hintText: "Password",
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: Colors.white12),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: Colors.white12),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  ElevatedButton(
+                    onPressed: () {
+                      // 로그인
+                      signInFunc();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent[100],
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                    child: const Text('Sign in'),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // note: email
-                      TextField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          hintText: "Email",
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: const BorderSide(color: Colors.white12),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: const BorderSide(color: Colors.white12),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      // note: Password
-                      TextField(
-                        obscureText: true,
-                        controller: passwordController,
-                        decoration: InputDecoration(
-                          hintText: "Password",
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: const BorderSide(color: Colors.white12),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: const BorderSide(color: Colors.white12),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      ElevatedButton(
+                      const Text('Not a member?'),
+                      TextButton(
                         onPressed: () {
-                          // 로그인
-                          signInFunc();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) {
+                              return const SignupPage();
+                            },),
+                          );
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.redAccent[100],
-                          minimumSize: const Size(double.infinity, 50),
-                        ),
-                        child: const Text('Sign in'),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text('Not a member?'),
-                          TextButton(
-                            onPressed: () {
-                              // todo: 회원가입 만들기
-                            },
-                            child: const Text('Register Now!',
-                                style: TextStyle(color: Colors.blue)),
-                          ),
-                        ],
+                        child: const Text('Register Now!',
+                            style: TextStyle(color: Colors.blue)),
                       ),
                     ],
                   ),
@@ -140,6 +141,9 @@ class _LoginState extends State<Login> {
           MaterialPageRoute(builder: (_) => const CloudFirestoreScreen()),
         );
       }
+      // note: 로그아웃 시, 계정 정보 삭제
+      emailController.clear();
+      passwordController.clear();
     } catch (e) {
       debugPrint(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(
