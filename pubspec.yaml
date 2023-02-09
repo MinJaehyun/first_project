@@ -53,6 +53,7 @@ dependencies:
   firebase_storage: ^11.0.10
   firebase_auth: ^4.2.5
   modal_progress_hud_nsn: ^0.3.0
+  get:
 
 dev_dependencies:
   flutter_test:
