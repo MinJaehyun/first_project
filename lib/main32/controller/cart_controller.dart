@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 class CartController extends GetxController {
   var cartList = <Product>[].obs;
   double get totalPrice => cartList.fold(0, (e, item) => e + item.price);
+  int get totalCartCount => cartList.length;
 
   void addToItem(Product product) {
     cartList.add(product);
