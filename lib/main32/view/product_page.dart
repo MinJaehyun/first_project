@@ -1,7 +1,12 @@
+import 'package:first_project/main32/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../controller/product_controller.dart';
 
 class ProductPage extends StatelessWidget {
-  const ProductPage({Key? key}) : super(key: key);
+  ProductPage({Key? key}) : super(key: key);
+  final shoppingController = Get.put(ShoppingController());
+  final cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -11,44 +16,55 @@ class ProductPage extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: ListView.builder(
-                itemCount: 8,
-                itemBuilder: (context, index) {
-                  return Card(
-                    margin: EdgeInsets.all(12),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(10, 10, 15, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: GetX<ShoppingController>(
+                builder: (controller) {
+                  return ListView.builder(
+                    itemCount: controller.products.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        margin: EdgeInsets.all(12),
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(10, 10, 15, 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Mouse', style: TextStyle(fontSize: 24)),
-                              Text('\$40.0', style: TextStyle(fontSize: 24)),
-                            ],
-                          ),
-                          Text('some description about product'),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {},
-                                child: Text('Add to card'),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('${controller.products[index].title}', style: TextStyle(fontSize: 24)),
+                                  Text('\$${controller.products[index].price}', style: TextStyle(fontSize: 24)),
+                                ],
+                              ),
+                              Text('${controller.products[index].subTitle}'),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('${controller.products[index].time}'),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      cartController.addToItem(controller.products[index]);
+                                    },
+                                    child: Text('Add to card'),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+                    },
                   );
-                },
+                }
               ),
             ),
             SizedBox(height: 30),
-            Text(
-              'Total amount: \$',
-              style: TextStyle(fontSize: 24, color: Colors.white),
+            GetX<CartController>(
+              builder: (controller) {
+                return Text(
+                  'Total amount: \$${controller.totalPrice}',
+                  style: TextStyle(fontSize: 24, color: Colors.white),
+                );
+              }
             ),
             SizedBox(height: 60),
           ],
@@ -57,7 +73,7 @@ class ProductPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
         backgroundColor: Colors.blueGrey,
-        label: Text('3'),
+        label: Text('0'),
         icon: Icon(Icons.add_shopping_cart),
       ),
     );
