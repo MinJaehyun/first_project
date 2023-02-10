@@ -18,41 +18,43 @@ class ProductPage extends StatelessWidget {
             Expanded(
               child: GetX<ShoppingController>(
                 builder: (controller) {
-                  return ListView.builder(
-                    itemCount: controller.products.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        margin: EdgeInsets.all(12),
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(10, 10, 15, 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('${controller.products[index].title}', style: TextStyle(fontSize: 24)),
-                                  Text('\$${controller.products[index].price}', style: TextStyle(fontSize: 24)),
-                                ],
-                              ),
-                              Text('${controller.products[index].subTitle}'),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('${controller.products[index].time}'),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      cartController.addToItem(controller.products[index]);
-                                    },
-                                    child: Text('Add to card'),
-                                  ),
-                                ],
-                              ),
-                            ],
+                  return Scrollbar(
+                    child: ListView.builder(
+                      itemCount: controller.products.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          margin: EdgeInsets.all(12),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(10, 10, 15, 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('${controller.products[index].title}', style: TextStyle(fontSize: 24)),
+                                    Text('\$${controller.products[index].price}', style: TextStyle(fontSize: 24)),
+                                  ],
+                                ),
+                                Text('${controller.products[index].subTitle}'),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('${controller.products[index].time}'),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        cartController.addToItem(controller.products[index]);
+                                      },
+                                      child: Text('Add to card'),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   );
                 }
               ),
@@ -71,9 +73,15 @@ class ProductPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          // todo: 장바구니에 추가한 상품 목록만 보여주기 - 새 페이지
+        },
         backgroundColor: Colors.blueGrey,
-        label: Text('0'),
+        label: GetX<CartController>(
+          builder: (controller) {
+            return Text('${controller.totalCartCount}');
+          }
+        ),
         icon: Icon(Icons.add_shopping_cart),
       ),
     );
