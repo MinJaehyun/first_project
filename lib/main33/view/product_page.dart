@@ -1,4 +1,5 @@
 import 'package:first_project/main33/controller/product_controller.dart';
+import 'package:first_project/main33/view/product_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -34,7 +35,7 @@ class ProductPage extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   // index 내려주고
-                  return Text('test');
+                  return ProductTile(product: productController.productList[index]);
                 },
                 itemCount: productController.productList.length,
               ),
