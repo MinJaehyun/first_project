@@ -35,7 +35,7 @@ class ProductPage extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   // index 내려주고
-                  return ProductTile(product: productController.productList[index]);
+                  return ProductTile(productController.productList[index]);
                 },
                 itemCount: productController.productList.length,
               ),
