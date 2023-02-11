@@ -20,6 +20,6 @@ class ProductController extends GetxController {
       // productList.assignAll(products); // 방법 1.
       productList.value = products; // 방법 2.
     }
-    print(productList);
+    // print(productList);
   }
 }
