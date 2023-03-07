@@ -10,9 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: '14~15',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.red
-      ),
+      theme: ThemeData(primarySwatch: Colors.red),
       home: const MyPage(),
     );
   }
@@ -32,85 +30,77 @@ class _MyPageState extends State<MyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('AppBar Icon Menu'),
+        title: const Text('AppBar Icon Menu'),
         centerTitle: true,
-        elevation: 0.0,
+        elevation: 0,
         actions: [
-          IconButton(onPressed: () {
-            debugPrint('shopping_cart btn is clicked');
-          }, icon: const Icon(Icons.shopping_cart)),
-          IconButton(onPressed: () {
-            debugPrint('shopping_cart btn is clicked');
-          }, icon: const Icon(Icons.search)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
         ],
       ),
       drawer: Drawer(
-        child: ListView(
-          padding:const  EdgeInsets.all(20),
-          children: [
-            UserAccountsDrawerHeader(
-              otherAccountsPictures: const [
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/dog1.jpg'),
-                  backgroundColor: Colors.white,
+        child: SafeArea(
+          child: ListView(
+            children: [
+              UserAccountsDrawerHeader(
+                currentAccountPicture: const CircleAvatar(
+                  backgroundImage: AssetImage('assets/main5/dog1.jpg'),
                 ),
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/dog1.jpg'),
-                  backgroundColor: Colors.white,
-                ),
-              ],
-              currentAccountPicture: const CircleAvatar(
-                backgroundImage: AssetImage('assets/dog1.jpg'),
-                backgroundColor: Colors.white,
-              ),
+                otherAccountsPictures: const [
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/main5/dog1.jpg'),
+                  ),
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/main5/dog1.jpg'),
+                  ),
+                ],
                 accountName: const Text('Min JH'),
                 accountEmail: const Text('krism01@naver.com'),
-              decoration: BoxDecoration(
-                color: Colors.red[200],
-                borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(40)),
+                decoration: BoxDecoration(
+                  color: Colors.red[200],
+                  borderRadius:
+                      const BorderRadius.only(bottomRight: Radius.circular(40)),
+                ),
+                onDetailsPressed: () {
+                  // note: 보이면 true, 안 보이면 false
+                  setState(() {
+                    isOnDetailPressDrawer = !isOnDetailPressDrawer;
+                  });
+                },
               ),
-              onDetailsPressed: () {
-                // note: 클릭 시, ListTile 삼항연산자 처리하여 보이면 true, 안 보이면 false 처리한다
-                setState(() {
-                  isOnDetailPressDrawer = !isOnDetailPressDrawer;
-                });
-              },
-            ),
-
-            if(isOnDetailPressDrawer)
-            Column(
-              children: [
-                ListTile(
-                  leading: const Icon(Icons.home),
-                  title: const Text('Home'),
-                  trailing: const Icon(Icons.add),
-                  onLongPress: () {
-                    debugPrint('home');
-                  },
+              if (isOnDetailPressDrawer)
+                Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.home),
+                      title: const Text('Home'),
+                      trailing: const Icon(Icons.add),
+                      onLongPress: () {
+                        debugPrint('home');
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.settings),
+                      title: const Text('setting'),
+                      trailing: const Icon(Icons.add),
+                      onTap: () {
+                        debugPrint('settings');
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.question_answer),
+                      title: const Text('question'),
+                      trailing: const Icon(Icons.add),
+                      onTap: () {
+                        debugPrint('question');
+                      },
+                    ),
+                  ],
                 ),
-                ListTile(
-                  leading: const Icon(Icons.settings),
-                  title: const Text('setting'),
-                  trailing: const Icon(Icons.add),
-                  onTap: () {
-                    debugPrint('settings');
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.question_answer),
-                  title: const Text('question'),
-                  trailing: const Icon(Icons.add),
-                  onTap: () {
-                    debugPrint('question');
-                  },
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
-// TODO, FIXME, NOTE
