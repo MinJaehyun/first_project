@@ -9,7 +9,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '14~15',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.deepOrange),
       home: const MyPage(),
@@ -33,7 +32,7 @@ class _MyPageState extends State<MyPage> {
       appBar: AppBar(
         title: const Text('Appbar icon menu'),
         centerTitle: true,
-        elevation: 0.0, // 그림자 높이
+        elevation: 0,
       ),
 
       // note: drawer - DrawerHeader
@@ -50,12 +49,10 @@ class _MyPageState extends State<MyPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const CircleAvatar(
-                      backgroundImage: AssetImage('assets/dog1.jpg'),
+                      backgroundImage: AssetImage('assets/main5/dog1.jpg'),
                       radius: 30,
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    const SizedBox(height: 5),
                     const Text('name'),
                     Row(
                       children: [
@@ -67,7 +64,6 @@ class _MyPageState extends State<MyPage> {
                               isOnDetailPressBtn = !isOnDetailPressBtn;
                             });
                           },
-                          // icon: isOnDetailPressBtn ? const Icon(Icons.arrow_downward) : const Icon(Icons.arrow_upward),
                           icon: Icon(isOnDetailPressBtn
                               ? CupertinoIcons.arrow_down
                               : CupertinoIcons.arrow_up),
@@ -80,9 +76,9 @@ class _MyPageState extends State<MyPage> {
             ),
             if (isOnDetailPressBtn)
               ListTile(
+                leading: const Icon(Icons.home),
                 title: const Text('Home'),
                 trailing: const Icon(Icons.add),
-                leading: const Icon(Icons.home),
                 onTap: () {
                   debugPrint('clicked is home');
                 },
@@ -99,23 +95,27 @@ class _MyPageState extends State<MyPage> {
             children: [
               UserAccountsDrawerHeader(
                 currentAccountPicture: const FlutterLogo(),
-                accountName: const Text('mjh'),
-                accountEmail: const Text('krism01@naver.com'),
                 otherAccountsPictures: const [
                   FlutterLogo(),
                   FlutterLogo(),
                 ],
+                accountName: const Text('mjh'),
+                accountEmail: const Text('krism01@naver.com'),
                 onDetailsPressed: () {
                   debugPrint('arrow is clicked');
+                  setState(() {
+                    isOnDetailPressBtn = !isOnDetailPressBtn;
+                  });
                 },
               ),
+              if (isOnDetailPressBtn)
               ListTile(
                 leading: const Icon(Icons.home),
                 title: const Text('Home'),
+                trailing: const Icon(Icons.add),
                 onTap: () {
                   debugPrint('home');
                 },
-                trailing: const Icon(Icons.add),
               ),
             ],
           ),
