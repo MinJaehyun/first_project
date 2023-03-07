@@ -1,4 +1,6 @@
+import 'package:first_project/main31/main31_2/controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,21 +17,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyPage extends StatefulWidget {
+class MyPage extends StatelessWidget {
   MyPage({Key? key}) : super(key: key);
-
-  @override
-  State<MyPage> createState() => _MyPageState();
-}
-
-class _MyPageState extends State<MyPage> {
-  int count = 0;
-
-  void coutUpBtn() {
-    setState(() {
-      this.count++;
-    });
-  }
+  final CountController countController = Get.put(CountController());
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +29,20 @@ class _MyPageState extends State<MyPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('count is: ${count}', style: TextStyle(fontSize: 24)),
+              GetBuilder<CountController>(
+                builder: (_) => Text('count is: ${countController.count1}',
+                    style: TextStyle(fontSize: 24)),
+              ),
+              // 버튼은 새로 그릴필요 없으므로 GetBuilder 설정하지 않는다
+              ElevatedButton(
+                onPressed: () => countController.coutUpBtn(),
+                child: Text('count up btn', style: TextStyle(fontSize: 24)),
+              ),
               ElevatedButton(
                 onPressed: () {
-                  coutUpBtn();
+                  countController.addSum();
                 },
-                child: Text('count up btn', style: TextStyle(fontSize: 24)),
+                child: Text('add sum btn', style: TextStyle(fontSize: 24)),
               ),
             ],
           ),
