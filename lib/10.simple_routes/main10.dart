@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'main10/screen_a.dart';
-import 'main10/screen_b.dart';
-import 'main10/screen_c.dart';
+import 'screen_a.dart';
+import 'screen_b.dart';
+import 'screen_c.dart';
 
 void main() => runApp(const MyApp());
 
@@ -14,8 +14,6 @@ class MyApp extends StatelessWidget {
       title: '10',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.deepOrange),
-      // home: const MyPage(),
-      // home: const ScreenA(),
       initialRoute: '/',
       routes: {
         '/': (context) => const ScreenA(),
