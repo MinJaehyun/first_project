@@ -27,7 +27,6 @@ class MyPage extends StatelessWidget {
           children: [
             Container(
               color: Colors.redAccent,
-              // margin: EdgeInsets.all(20),
               margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
               padding: const EdgeInsets.all(20),
               child: const Text('container color and backgroundColor',
