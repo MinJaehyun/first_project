@@ -1,4 +1,4 @@
-import 'package:first_project/9/9-3/second_page.dart';
+import 'package:first_project/9.snack_bar_utilize/9-3.snackbar_msg_/second_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -33,7 +33,7 @@ class MyPage extends StatelessWidget {
               return SecondPage();
             }));
           },
-          child: Text('결제하시겠습니까?'),
+          child: Text('상품페이지로 이동하시겠습니까?'),
         ),
       ),
     );
