@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: '19-2.Toast Msg',
+      title: '19.Toast Msg',
       debugShowCheckedModeBanner: false,
       home: MyPage(),
     );
@@ -18,6 +18,18 @@ class MyApp extends StatelessWidget {
 
 class MyPage extends StatelessWidget {
   const MyPage({Key? key}) : super(key: key);
+
+  void flutterToast() {
+    Fluttertoast.showToast(
+      msg: "This is Center Short Toast",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 3,
+      backgroundColor: Colors.teal,
+      textColor: Colors.white,
+      fontSize: 18.0,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +41,6 @@ class MyPage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            // 클릭 시, 하단 팝업 띄우기
             flutterToast();
           },
           child: const Text('Toast Btn'),
@@ -37,16 +48,4 @@ class MyPage extends StatelessWidget {
       ),
     );
   }
-}
-
-void flutterToast() {
-  Fluttertoast.showToast(
-    msg: "This is Center Short Toast",
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.TOP,
-    timeInSecForIosWeb: 3,
-    backgroundColor: Colors.teal,
-    textColor: Colors.white,
-    fontSize: 18.0,
-  );
 }
