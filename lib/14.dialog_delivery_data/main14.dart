@@ -1,4 +1,4 @@
-import 'package:first_project/main14/dialog/dialog.dart';
+import 'package:first_project/14.dialog_delivery_data/dialog/dialog.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
