@@ -75,6 +75,27 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  fluttertoast:
+    dependency: "direct main"
+    description:
+      name: fluttertoast
+      sha256: "7cc92eabe01e3f1babe1571c5560b135dfc762a34e41e9056881e2196b178ec1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "8.1.2"
+  introduction_screen:
+    dependency: "direct main"
+    description:
+      name: introduction_screen
+      sha256: "307869da307a6ba291008f8d06030816e94fe0759f6e34d671f9c39c4d512937"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.1"
   js:
     dependency: transitive
     description:
@@ -186,3 +207,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=2.19.0 <4.0.0"
+  flutter: ">=1.10.0"
