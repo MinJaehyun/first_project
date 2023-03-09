@@ -22,8 +22,10 @@ class _RandomDicePageState extends State<RandomDicePage> {
     });
   }
 
-  void showToast(int ranNum1,
-      int ranNum2,) {
+  void showToast(
+    int ranNum1,
+    int ranNum2,
+  ) {
     Fluttertoast.showToast(
         msg: "Number is $ranNum1, $ranNum2",
         toastLength: Toast.LENGTH_SHORT,
@@ -53,34 +55,26 @@ class _RandomDicePageState extends State<RandomDicePage> {
                   Flexible(
                       flex: 5,
                       child:
-                      Image.asset('assets/main16/dice/dice$ranNum1.png')),
-                  const SizedBox(
-                    width: 20,
-                  ),
+                          Image.asset('assets/main16/dice/dice$ranNum1.png')),
+                  const SizedBox(width: 20),
                   Flexible(
-                    flex: 5,
-                    child: Image.asset('assets/main16/dice/dice$ranNum2.png'),
-                  ),
+                      flex: 5,
+                      child:
+                          Image.asset('assets/main16/dice/dice$ranNum2.png')),
                 ],
               ),
-              const SizedBox(
-                height: 50,
-              ),
+              const SizedBox(height: 50),
               ElevatedButton(
-                // note: ★ ButtonTheme 더 이상 사용되지 않으므로, style 설정으로 처리한다
-                style: ElevatedButton.styleFrom(
+                  // note: ★ ButtonTheme 더 이상 사용되지 않으므로, styleFrom 설정한다
+                  style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orange,
                     minimumSize: const Size(80, 50),
-                ),
-                onPressed: () {
-                  // note: shuffle
-                  shuffle();
-                  // note: toast msg
-                  showToast(ranNum1, ranNum2);
-                },
-                child: const Icon(Icons.play_arrow),
-                // style: ButtonStyle(foregroundColor: ),
-              ),
+                  ),
+                  onPressed: () {
+                    shuffle();
+                    showToast(ranNum1, ranNum2);
+                  },
+                  child: const Icon(Icons.play_arrow)),
             ],
           ),
         ),

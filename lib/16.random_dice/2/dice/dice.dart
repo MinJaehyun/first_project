@@ -25,53 +25,43 @@ class _DicePageState extends State<DicePage> {
             child: Column(
               children: [
                 Image.asset('assets/main16/login.png'),
-                const SizedBox(
-                  height: 40,
-                ),
+                const SizedBox(height: 40),
                 TextField(
                   controller: idController,
                   decoration: const InputDecoration(
-                    labelText: "Enter 'dice'",
-                    labelStyle: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.bold),
-                  ),
+                      labelText: "Enter 'dice'",
+                      labelStyle: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold)),
                   keyboardType: TextInputType.emailAddress,
                 ),
                 TextField(
-                  controller: passwordController,
-                  decoration: const InputDecoration(
-                    labelText: "Enter password",
-                    labelStyle: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.bold),
-                  ),
-                  obscureText: true,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
+                    controller: passwordController,
+                    decoration: const InputDecoration(
+                        labelText: "Enter password '12345'",
+                        labelStyle: TextStyle(
+                            color: Colors.blue, fontWeight: FontWeight.bold)),
+                    obscureText: true),
+                const SizedBox(height: 20),
                 OutlinedButton(
                   onPressed: () {
-                    // print('idController: $passwordController');
-                    if (idController.text == 'dice' && passwordController.text == '123456') {
+                    if (idController.text == 'dice' &&
+                        passwordController.text == '12345') {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RandomDicePage(),
-                        ),
-                      );
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RandomDicePage(),
+                          ));
                     }
-                    // else if(idController.text == 'dice' && passwordController.text != '123456') {}
                     else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          duration: Duration(seconds: 3),
-                          content: Text('err'),
-                          backgroundColor: Colors.blue,
-                        ),
+                            duration: Duration(seconds: 3),
+                            content: Text('err'),
+                            backgroundColor: Colors.blue),
                       );
                     }
                   },
-                  child: const Text('login btn'),
+                  child: const Text('login'),
                 ),
               ],
             ),
