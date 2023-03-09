@@ -1,4 +1,4 @@
-import 'package:first_project/main17/main17-2/login_buttons/login_buttons.dart';
+import 'package:first_project/17.my_button/2/login_buttons/login_buttons.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
