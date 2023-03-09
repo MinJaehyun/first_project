@@ -10,7 +10,8 @@ class Dice extends StatefulWidget {
 }
 
 class _DiceState extends State<Dice> {
-  late int dice1,dice2 = 1;
+  late int dice1 = 1;
+  late int dice2 = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -43,34 +44,31 @@ class _DiceState extends State<Dice> {
             ),
             const SizedBox(height: 30),
             ElevatedButton(
-                onPressed: (){
-                  // 버튼 클릭 시, 주사위 변수값 변경하기
-                  setState(() {
-                    dice1 = Random().nextInt(6) + 1;
-                    dice2 = Random().nextInt(6) + 1;
-                  });
-                  // 버튼 클릭 시, toast msg 주사위 숫자 출력하기
-                  showToast("left: $dice1 , right: $dice2");
-                },
-                child: const Text('mix the dice')),
+              onPressed: () {
+                // 주사위값 변경
+                setState(() {
+                  dice1 = Random().nextInt(6) + 1;
+                  dice2 = Random().nextInt(6) + 1;
+                });
+                // toast msg 에 선택된 주사위 숫자를 문자형으로 출력
+                showToast("left: $dice1 , right: $dice2");
+              },
+              child: const Text('mix the dice'),
+            ),
           ],
         ),
       ),
     );
   }
-}
 
-void showToast(String msg) {
-  // var dice1;
-  // var dice2;
-
-  Fluttertoast.showToast(
-    msg: msg,
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 3,
-    backgroundColor: Colors.red,
-    textColor: Colors.white,
-    fontSize: 22.0
-  );
+  void showToast(String msg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 3,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 22.0);
+  }
 }
