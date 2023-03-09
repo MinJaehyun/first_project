@@ -1,4 +1,4 @@
-import 'package:first_project/main16/main16-2/random_dice_page/random_dice_page.dart';
+import 'package:first_project/16.random_dice/2/random_dice_page/random_dice_page.dart';
 import 'package:flutter/material.dart';
 
 class DicePage extends StatefulWidget {

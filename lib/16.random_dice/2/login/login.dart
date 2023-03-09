@@ -1,4 +1,4 @@
-import 'package:first_project/main16/main16-2/dice/dice.dart';
+import 'package:first_project/16.random_dice/2/dice/dice.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
