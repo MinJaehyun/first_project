@@ -1,4 +1,4 @@
-import 'package:first_project/main17/main17-2/my_button/my_button.dart';
+import 'package:first_project/17.my_button/2/my_button/my_button.dart';
 import 'package:flutter/material.dart';
 
 class LoginButtons extends StatelessWidget {
@@ -9,7 +9,7 @@ class LoginButtons extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: const Text('Sign in'),
+        title: const Text('Login SNS'),
         centerTitle: true,
         elevation: 0.2,
       ),
@@ -19,31 +19,26 @@ class LoginButtons extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MyButton(
-              // note: 위젯형태로 넣을 거면 아래처럼 처리하고
+              // note: 위젯 형태로 넣을 거면 아래처럼 처리하고
               image: Image.asset('assets/main17/glogo.png'),
               // note: Color 형태로 넣을 거면 아래처럼 처리한다
               color: Colors.white,
               radius: 4.0,
-              loginText: const Text(
-                'Login with Google',
-                style: TextStyle(color: Colors.black87, fontSize: 15),
-              ),
+              loginText: const Text('Login with Google',
+                  style: TextStyle(color: Colors.black87, fontSize: 15)),
             ),
             MyButton(
               image: Image.asset('assets/main17/flogo.png'),
               // note: 에러 시, color: Colors.blue[900], 아래로 해결
               color: Colors.blue.shade900,
               radius: 4.0,
-              loginText: const Text(
-                'Login with Facebook',
-                style: TextStyle(color: Colors.white),
-              ),
+              loginText: const Text('Login with Facebook',
+                  style: TextStyle(color: Colors.white)),
             ),
             ElevatedButton(
               onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green[600],
-              ),
+              style:
+                  ElevatedButton.styleFrom(backgroundColor: Colors.green[600]),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -51,9 +46,8 @@ class LoginButtons extends StatelessWidget {
                   const Text('Login with Email',
                       style: TextStyle(color: Colors.white)),
                   Opacity(
-                    opacity: 0.0,
-                    child: Image.asset('assets/main17/flogo.png'),
-                  ),
+                      opacity: 0.0,
+                      child: Image.asset('assets/main17/flogo.png')),
                 ],
               ),
             ),

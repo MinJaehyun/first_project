@@ -18,9 +18,7 @@ class MyButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {},
       style: ElevatedButton.styleFrom(
-        // todo
         backgroundColor: color,
-        // todo
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius),
         ),
@@ -28,9 +26,7 @@ class MyButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          // todo
           image,
-          // todo
           loginText,
           Opacity(
             opacity: 0,
