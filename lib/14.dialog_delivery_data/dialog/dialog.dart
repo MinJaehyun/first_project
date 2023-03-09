@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MyDialog extends StatefulWidget {
-  const MyDialog(context, this.job, {Key? key, required this.description, required this.image }) : super(key: key);
+  const MyDialog(context, this.job,
+      {Key? key, required this.description, required this.image})
+      : super(key: key);
   final String job;
   final String description;
   final dynamic image;
@@ -31,32 +33,26 @@ class _MyDialogState extends State<MyDialog> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(
-                      widget.image,
-                      alignment: Alignment.center,
-                      width: 200,
-                      height: 200,
-                    ),
+                    child: Image.asset(widget.image,
+                        alignment: Alignment.center, width: 200, height: 200),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      // widget.description,
-                      'des: ${widget.description}',
-                      style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey),
-                      textAlign: TextAlign.center,
-                    ),
+                        // widget.description,
+                        'des: ${widget.description}',
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                        textAlign: TextAlign.center),
                   ),
                   ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.close),
-                    label: const Text('close'),
-                  )
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.close),
+                      label: const Text('close')),
                 ],
               );
             },

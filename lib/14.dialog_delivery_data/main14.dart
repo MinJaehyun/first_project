@@ -36,12 +36,12 @@ class _MyPageState extends State<MyPage> {
 
   // showPopup
   void showPopup(context, job, image, description) {
-    // note: showDialog 위젯 사용
+    // note: showDialog 위젯
     showDialog(
       barrierDismissible: false,
       context: context,
       builder: (context) {
-        // note: 팝업창 형태 만들기
+        // note: 커스텀 팝업창
         return MyDialog(context, job, description: description, image: image);
       },
     );
@@ -51,56 +51,48 @@ class _MyPageState extends State<MyPage> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width * 0.6;
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'ListView',
-            style: TextStyle(color: Colors.grey[500]),
-          ),
-          elevation: 0,
-          backgroundColor: Colors.grey[100],
-        ),
-        body: ListView.builder(
-          itemCount: jobList.length,
-          itemBuilder: (context, index) {
-            // NOTE: Card 위젯에 제스처감지 기능 구현
-            return GestureDetector(
-              onTap: () {
-                // NOTE: Card 클릭 시, 상단에 정의한 변수를 showPopup함수의 인자로 넣어 실행하여 팝업창(or 모달창) 띄우기
-                showPopup(context, jobList[index], imageList[index], descriptions[index]);
-              },
-              child: Card(
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Image.asset(imageList[index]),
-                      // NOTE: Image(image: AssetImage(imageList[index])); // 다른 사용법
-                    ),
-                    SizedBox(
-                      // NOTE: width: 511 설정 시, 반응형 웹으로 테스트하면 overflow 발생
-                      width: width,
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Text(jobList[index],
-                                style: const TextStyle(
-                                  fontSize: 22,
-                                )),
-                            Text(
-                              descriptions[index],
-                              maxLines: 3,
-                            ),
-                          ],
-                        ),
+      appBar: AppBar(
+        title: Text('ListView', style: TextStyle(color: Colors.grey[500])),
+        elevation: 0,
+        backgroundColor: Colors.grey[100],
+      ),
+      body: ListView.builder(
+        itemCount: jobList.length,
+        itemBuilder: (context, index) {
+          // NOTE: Card 위젯에 제스처감지 기능 구현
+          return GestureDetector(
+            onTap: () {
+              // NOTE: Card 클릭 시, 상단에 정의한 변수를 showPopup함수의 인자로 넣어 실행하여 팝업창 띄우기
+              showPopup(context, jobList[index], imageList[index],
+                  descriptions[index]);
+            },
+            child: Card(
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: Image.asset(imageList[index]),
+                  ),
+                  SizedBox(
+                    // NOTE: width: 511 설정 시, 반응형 웹으로 테스트하면 overflow 발생
+                    width: width,
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Text(jobList[index],
+                              style: const TextStyle(fontSize: 22)),
+                          Text(descriptions[index], maxLines: 3),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
