@@ -23,32 +23,31 @@ class OnBoardingPage extends StatelessWidget {
         pages: [
           PageViewModel(
               title: "1st page",
-              body: "Welcome to the app! This is a description of how it works.",
+              body:
+                  "Welcome to the app! This is a description of how it works.",
               image: const Center(
-                child: Image(
-                    image: AssetImage('assets/main13/image1.png'),
-                    width: double.infinity),
-              ),
-              // Note: 기존 PageDecoration() 위젯을 커스텀
+                  child: Image(
+                      image: AssetImage('assets/main13/image1.png'),
+                      width: double.infinity)),
+              // Note: PageDecoration() 위젯을 커스텀
               decoration: getPageDecoration()),
           PageViewModel(
               title: "2nd page",
-              body: "Instead of having to buy an entire share, invest any amount you want.",
+              body:
+                  "Instead of having to buy an entire share, invest any amount you want.",
               image: const Center(
-                child: Image(
-                    image: AssetImage('assets/main13/image2.png'),
-                    width: double.infinity),
-              ),
-              // Note: 기존 PageDecoration() 위젯을 사용
+                  child: Image(
+                      image: AssetImage('assets/main13/image2.png'),
+                      width: double.infinity)),
               decoration: const PageDecoration()),
           PageViewModel(
               title: "3rd page",
-              body: "Download the Stockpile app and master the market with our mini-lesson.",
+              body:
+                  "Download the Stockpile app and master the market with our mini-lesson.",
               image: const Center(
-                child: Image(
-                    image: AssetImage('assets/main13/image3.png'),
-                    width: double.infinity),
-              ),
+                  child: Image(
+                      image: AssetImage('assets/main13/image3.png'),
+                      width: double.infinity)),
               decoration: getPageDecoration()),
           // PageViewModel(),
         ],
@@ -56,10 +55,7 @@ class OnBoardingPage extends StatelessWidget {
         onDone: () {
           debugPrint('clicked is done');
           Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const MyPage(),
-              ));
+              context, MaterialPageRoute(builder: (context) => const MyPage()));
         },
         next: const Icon(Icons.arrow_forward),
         skip: const Text('skip'),
@@ -77,10 +73,7 @@ class OnBoardingPage extends StatelessWidget {
   // NOTE: PageDecoration 커스텀
   PageDecoration getPageDecoration() {
     return const PageDecoration(
-        titleTextStyle: TextStyle(
-          fontSize: 28,
-          fontWeight: FontWeight.bold,
-        ),
+        titleTextStyle: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         bodyTextStyle: TextStyle(fontSize: 18, color: Colors.white70),
         imagePadding: EdgeInsets.only(top: 50),
         pageColor: Colors.orange);
@@ -102,17 +95,13 @@ class MyPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Main Screen',
-              style: TextStyle(fontSize: 30),
-            ),
+            const Text('Main Screen', style: TextStyle(fontSize: 30)),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const OnBoardingPage(),
-                      ));
+                          builder: (context) => const OnBoardingPage()));
                 },
                 child: const Text('Go to the on boarding Screen'))
           ],
