@@ -22,9 +22,9 @@ class _LogInState extends State<LogIn> {
 
     // test
     if (googleUser != null) {
-      print('name = ${googleUser.displayName}');
-      print('email = ${googleUser.email}');
-      print('id = ${googleUser.id}');
+      // print('name = ${googleUser.displayName}');
+      // print('email = ${googleUser.email}');
+      // print('id = ${googleUser.id}');
       setState(() {
         name = googleUser.displayName!;
         email = googleUser.email;
@@ -55,7 +55,7 @@ class _LogInState extends State<LogIn> {
         centerTitle: true,
         elevation: 0.2,
       ),
-      // note: 간편하게 메서드를 아래로 분리
+      // note: 메서드를 분리
       body: _buildContainer(),
     );
   }
@@ -68,22 +68,21 @@ class _LogInState extends State<LogIn> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // note: 일반 버튼
+              // note: Google 일반 버튼
               ElevatedButton(
                 onPressed: () {
-                  signInWithGoogle();
-                  Future.delayed(Duration(seconds: 3));
-
-                  // fixme: 아래 테스트 중..
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  //   return GooglePage(name: name, email: email, id: id);
-                  // },),);
+                  // note: signInWithGoogle() 이 실행 성공하면 login user info page 로 이동한다
+                  signInWithGoogle().then((user) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return GooglePage(); // name: name, email: email, id: id
+                    }));
+                  });
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0)),
-                ),
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.0))),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
