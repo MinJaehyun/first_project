@@ -10,10 +10,8 @@ class MyApp extends StatelessWidget {
     showData();
     return MaterialApp(
       home: Scaffold(
-        body: Text(
-          '4.async_await',
-          style: Theme.of(context).textTheme.headline4,
-        ),
+        body:
+            Text('4.async_await', style: Theme.of(context).textTheme.headline4),
       ),
     );
   }

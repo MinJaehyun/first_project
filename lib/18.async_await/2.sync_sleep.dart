@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
@@ -15,9 +16,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: const Scaffold(
-        body: Center(
-          child: MyWidget(),
-        ),
+        body: Center(child: MyWidget()),
       ),
     );
   }
@@ -29,10 +28,7 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     showData();
-    return Text(
-      '1.sync!',
-      style: Theme.of(context).textTheme.headline4,
-    );
+    return Text('2.sync_sleep', style: Theme.of(context).textTheme.headline4);
   }
 }
 
@@ -48,6 +44,8 @@ void startTask() {
 }
 
 void accessData() {
+  Duration time = const Duration(seconds: 5);
+  sleep(time);
   String info2 = '데이터 접속 중';
   debugPrint(info2);
 }

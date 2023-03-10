@@ -15,9 +15,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: const Scaffold(
-        body: Center(
-          child: MyWidget(),
-        ),
+        body: Center(child: MyWidget()),
       ),
     );
   }
@@ -29,10 +27,7 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     showData();
-    return Text(
-      '3.sync',
-      style: Theme.of(context).textTheme.headline4,
-    );
+    return Text('1.sync!', style: Theme.of(context).textTheme.headline4);
   }
 }
 
@@ -48,12 +43,8 @@ void startTask() {
 }
 
 void accessData() {
-  Duration time = const Duration(seconds: 10);
-  // sleep(time);
-  Future.delayed(time, () {
-    String info2 = '데이터 접속 중';
-    debugPrint(info2);
-  });
+  String info2 = '데이터 접속 중';
+  debugPrint(info2);
 }
 
 void fetchData() {
