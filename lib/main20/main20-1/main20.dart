@@ -24,51 +24,51 @@ class MyPage extends StatefulWidget {
 
 class _MyPageState extends State<MyPage> {
   String currentData = 'no data found';
-  String bottomData = '버튼을 사용하지 않고, 데이터를 읽어 오는 중입니다';
+  String bottomData = ' 버튼을 사용하지 않고,\n 데이터를 읽어 오는 중입니다';
 
-  var style = const TextStyle(fontSize: 22, color: Colors.redAccent);
+  var style = const TextStyle(fontSize: 18, color: Colors.redAccent);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Future Test'),
-      ),
+      appBar: AppBar(title: const Text('Future Test')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // note: 버튼을 클릭하여 데이터를 가져와서 변경하는 방법
             ElevatedButton(
-                onPressed: () {
-                  fetchData();
-                },
-                child: const Text('Future btn')),
+              onPressed: () {
+                fetchData();
+              },
+              child: const Text('Future btn'),
+            ),
             const SizedBox(height: 22),
-            Text(
-              currentData,
-              style: style,
-              // style: ,
-            ),
-            const Divider(
-              height: 20,
-              thickness: 3.5,
-            ),
+            Text(currentData, style: style),
+            const Divider(height: 20, thickness: 3.5, indent: 55, endIndent: 55),
+            const SizedBox(height: 22),
+
+            // note: 실시간으로 데이터를 가져와서 변경하는 방법
             FutureBuilder(
+              // note: 아..착각했다 future 에는 return 될 결과를 작성해야 한다!
+              // note: 초기값 설정은 initialData, ConnectionState.waiting 설정 안 되였으면 이 초기값을 나타낸다
+              // initialData: "Initial Data",
+
+              // note: future: 에는 done 에서 사용할 마지막 출력할 값을 설정한다
               future: myData(),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return Text(snapshot.data!);
-                } else if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return Column(
-                    children: [
-                      Text(bottomData),
-                      const CircularProgressIndicator(),
-                    ],
-                  );
-                } else {
-                  return const CircularProgressIndicator();
+                if (snapshot.connectionState == ConnectionState.none) {
+                  // note: done 언제 사용? 앱이 초기화 중이거나, 네트워크 연결이 끊기거나, 데이터 로딩 전일 때.
+                  return Text('앱이 초기화 중이거나, 네트워크 연결이 끊기거나, 데이터를 로딩 전 입니다.');
                 }
+                // note: waiting 는 연결 중이므로 대기중인 문자열이나 로딩을 출력한다
+                else if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Column(
+                    children: [Text(bottomData, style: style), CircularProgressIndicator()],
+                  );
+                }
+                // note: ConnectionState.done 상태이며, future: myData() 실행값은 snapshot.data 에 담겨있다
+                return Text(snapshot.data!, style: TextStyle(fontSize: 25));
               },
             )
           ],
@@ -78,7 +78,6 @@ class _MyPageState extends State<MyPage> {
   }
 
   void fetchData() async {
-    // 글자 변경 후, 색상이 변경되도록 Future이벤트를 동기적으로 설정
     Duration duration = const Duration(seconds: 2);
     // 방법 1. Future.delayed()
     // await Future.delayed(duration, () {
@@ -92,8 +91,8 @@ class _MyPageState extends State<MyPage> {
       setState(() {
         currentData = 'The data is fetched';
         style = const TextStyle(fontSize: 22, color: Colors.green);
-      },);
-    },);
+      });
+    });
   }
 
   Future<String> myData() async {
