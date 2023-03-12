@@ -25,8 +25,12 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   String currentData = 'no data found';
   String bottomData = ' 버튼을 사용하지 않고,\n 데이터를 읽어 오는 중입니다';
-
   var style = const TextStyle(fontSize: 18, color: Colors.redAccent);
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +54,16 @@ class _MyPageState extends State<MyPage> {
 
             // note: 실시간으로 데이터를 가져와서 변경하는 방법
             FutureBuilder(
+
               // note: 아..착각했다 future 에는 return 될 결과를 작성해야 한다!
               // note: 초기값 설정은 initialData, ConnectionState.waiting 설정 안 되였으면 이 초기값을 나타낸다
               // initialData: "Initial Data",
+              initialData: bottomData,
 
               // note: future: 에는 done 에서 사용할 마지막 출력할 값을 설정한다
               future: myData(),
               builder: (context, snapshot) {
+                print('FutureBuilder re builder');
                 if (snapshot.connectionState == ConnectionState.none) {
                   // note: done 언제 사용? 앱이 초기화 중이거나, 네트워크 연결이 끊기거나, 데이터 로딩 전일 때.
                   return Text('앱이 초기화 중이거나, 네트워크 연결이 끊기거나, 데이터를 로딩 전 입니다.');
@@ -77,7 +84,7 @@ class _MyPageState extends State<MyPage> {
     );
   }
 
-  void fetchData() async {
+  Future<void> fetchData() async {
     Duration duration = const Duration(seconds: 2);
     // 방법 1. Future.delayed()
     // await Future.delayed(duration, () {
