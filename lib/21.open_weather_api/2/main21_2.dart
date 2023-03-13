@@ -1,6 +1,6 @@
+import 'package:first_project/21.open_weather_api/2/my_page/my_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:first_project/main21/main21_2/my_page/my_page.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '21-2',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(backgroundColor: Colors.orange),
       home: const MyPage(),
