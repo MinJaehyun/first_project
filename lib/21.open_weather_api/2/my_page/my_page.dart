@@ -1,9 +1,9 @@
+import 'package:first_project/21.open_weather_api/2/air_pollution/air_pollution.dart';
+import 'package:first_project/21.open_weather_api/2/body/body.dart';
+import 'package:first_project/21.open_weather_api/2/geolocation/geolocation.dart';
+import 'package:first_project/21.open_weather_api/2/network/network.dart';
+import 'package:first_project/21.open_weather_api/2/weather_svg/weather_svg.dart';
 import 'package:flutter/material.dart';
-import 'package:first_project/main21/main21_2/air_pollution/air_pollution.dart';
-import 'package:first_project/main21/main21_2/weather_svg/weather_svg.dart';
-import 'package:first_project/main21/main21_2/geolocation/geolocation.dart';
-import 'package:first_project/main21/main21_2/network/network.dart';
-import 'package:first_project/main21/main21_2/body/body.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/svg.dart';
 
