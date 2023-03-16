@@ -24,8 +24,7 @@ class DustBody extends StatefulWidget {
 
 class _DustBodyState extends State<DustBody> {
   String getTime() {
-    return DateFormat(' EEEE \n d MMM, yyy \n\n hh:mm:ss a')
-        .format(DateTime.now());
+    return DateFormat(' EEEE \n d MMM, yyy \n\n hh:mm:ss a').format(DateTime.now());
   }
 
   @override
@@ -37,81 +36,58 @@ class _DustBodyState extends State<DustBody> {
         color: Colors.orangeAccent,
       ),
       child: Center(
-        child: FutureBuilder(
-          future: Future.delayed(
-            const Duration(seconds: 2),
-          ),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            }
-            return SingleChildScrollView(
-              child: Column(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 70),
+              widget.loadSvg,
+              const SizedBox(height: 30),
+              Text('${widget.temperature.round().toString()} \u2103', style: GoogleFonts.getFont('Lato', fontSize: 25, color: Colors.white)),
+              const SizedBox(height: 70),
+              TimerBuilder.periodic(
+                const Duration(seconds: 1),
+                builder: (context) {
+                  return Text(getTime(), style: const TextStyle(color: Colors.white, fontSize: 20));
+                },
+              ),
+              const SizedBox(height: 30),
+              const Divider(thickness: 1, color: Colors.white70),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const SizedBox(height: 70),
-                  widget.loadSvg,
-                  const SizedBox(height: 30),
-                  Text('${widget.temperature.round().toString()} \u2103',
-                      style: GoogleFonts.getFont('Lato',
-                          fontSize: 25, color: Colors.white)),
-                  const SizedBox(height: 70),
-                  TimerBuilder.periodic(
-                    const Duration(seconds: 1),
-                    builder: (context) {
-                      return Text(
-                        getTime(),
-                        style: const TextStyle(color: Colors.white, fontSize: 20),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 30),
-                  const Divider(thickness: 1, color: Colors.white70),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  Column(
                     children: [
-                      Column(
-                        children: [
-                          Text('AQI(대기질 지수)', style: style),
-                          const SizedBox(height: 10),
-                          widget.indexImg,
-                          const SizedBox(height: 10),
-                          widget.indexText,
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Column(
-                        children: [
-                          Text('미세먼지', style: style),
-                          const SizedBox(height: 30),
-                          Text('${widget.particulateMatter}',
-                              style: GoogleFonts.getFont('Lato',
-                                  fontSize: 38, color: Colors.white)),
-                          const SizedBox(height: 30),
-                          Text("㎍/㎥", style: style),
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Column(
-                        children: [
-                          Text('초미세먼지', style: style),
-                          const SizedBox(height: 30),
-                          Text('${widget.ultraParticulateMatter}',
-                              style: GoogleFonts.getFont('Lato',
-                                  fontSize: 38, color: Colors.white)),
-                          const SizedBox(height: 30),
-                          Text("㎍/㎥", style: style),
-                        ],
-                      ),
+                      Text('AQI(대기질 지수)', style: style),
+                      const SizedBox(height: 10),
+                      widget.indexImg,
+                      const SizedBox(height: 10),
+                      widget.indexText,
+                    ],
+                  ),
+                  const SizedBox(width: 5),
+                  Column(
+                    children: [
+                      Text('미세먼지', style: style),
+                      const SizedBox(height: 30),
+                      Text('${widget.particulateMatter}', style: GoogleFonts.getFont('Lato', fontSize: 38, color: Colors.white)),
+                      const SizedBox(height: 30),
+                      Text("㎍/㎥", style: style),
+                    ],
+                  ),
+                  const SizedBox(width: 5),
+                  Column(
+                    children: [
+                      Text('초미세먼지', style: style),
+                      const SizedBox(height: 30),
+                      Text('${widget.ultraParticulateMatter}', style: GoogleFonts.getFont('Lato', fontSize: 38, color: Colors.white)),
+                      const SizedBox(height: 30),
+                      Text("㎍/㎥", style: style),
                     ],
                   ),
                 ],
               ),
-            );
-          },
+            ],
+          ),
         ),
       ),
     );
