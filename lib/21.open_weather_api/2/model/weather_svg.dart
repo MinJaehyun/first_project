@@ -1,10 +1,11 @@
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Model {
+class Weather_Model {
   final int conditionId;
-  Model(this.conditionId);
+  Weather_Model(this.conditionId);
 
   SvgPicture getSvg() {
+    // 날씨 상태를 받아 이미지를 반환하는 코드
     SvgPicture duplicationCode({file}) {
       return SvgPicture.asset(
         'assets/main21/svg/$file.svg',
@@ -16,11 +17,6 @@ class Model {
     if (conditionId >= 200 && conditionId < 300) {
       String file = 'lightning';
       return duplicationCode(file: file);
-      // return SvgPicture.asset(
-      //   'assets/main21/svg/lightning.svg',
-      //   width: 100,
-      //   height: 100,
-      // );
     } else if (conditionId >= 300 && conditionId < 500) {
       String file = 'rain';
       return duplicationCode(file: file);
