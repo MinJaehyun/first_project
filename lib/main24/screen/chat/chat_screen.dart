@@ -10,7 +10,6 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final _authentication = FirebaseAuth.instance;
   User? loggerUser;
 
   @override
@@ -21,11 +20,11 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void getCurrentUser() {
     try {
-      final user = _authentication.currentUser;
+      final user = FirebaseAuth.instance.currentUser;
       // print(user);
       loggerUser = user;
     } catch (e) {
-      // print(e);
+      print(e);
     }
   }
 
@@ -37,42 +36,40 @@ class _ChatScreenState extends State<ChatScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut().then((result) => {
-                      // print("test then result")
-                    });
-                // NOTE 제일 처음으로 돌아가기: Navigator.of(context).popUntil((route) => route.isFirst);
-                // NOTE 회원탈퇴: FirebaseAuth.instance.currentUser!.delete();
-              },
-              icon: const Icon(Icons.logout)),
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut().then((result) => {});
+              // todo: signOut() 으로 위젯에서 chat_screen 사라지지 않았으면 pop() 처리하기
+            },
+            icon: const Icon(Icons.logout),
+          ),
         ],
       ),
+      // todo: 직접 Firestore 웹사이트에 접근하여 컬렉션 및 문서 및 필드를 작성하였는데, 코드를 통해 message를 몇 개 추가해보기. add? set?
       body: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection('/chats/pZaVfyO0YlsbF0VMyTLL/messages')
-              .snapshots(),
-          builder: (context,
-              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-            // 우선 처리해야 한다
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
+        stream: FirebaseFirestore.instance.collection('/chats/pZaVfyO0YlsbF0VMyTLL/messages').snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final docs = snapshot.data!.docs;
+          return ListView.builder(
+            itemCount: docs.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(docs[index]['text'], style: TextStyle(fontSize: 25)),
+                    Divider(thickness: 3),
+                  ],
+                ),
               );
-            }
-            final docs = snapshot.data!.docs;
-            return ListView.builder(
-              itemCount: docs.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    docs[index]['text'],
-                    style: TextStyle(fontSize: 33),
-                  ),
-                );
-              },
-            );
-          }),
+            },
+          );
+        },
+      ),
     );
   }
 }
+
+// todo: note: FirebaseAuth.instance.currentUser 통해 로그인 한 유저를 확인할 수 있다. 이를 활용하여 메시지의 주인을 나타낼 수 있다
