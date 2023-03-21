@@ -88,7 +88,10 @@ class _SigninSignupState extends State<SigninSignup> {
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.easeIn,
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(20),
+                  // fixme: 회원가입의 password 입력창 클릭 시, 소프트키보드에 입력창이 가려지는 현상 수정하기
+                  // 기존: padding: const EdgeInsets.all(20)
+                  padding: EdgeInsets.only(bottom: 70),
+                  // note: padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom) 설정 시, 하단 여백 무제한
                   child: Column(
                     children: [
                       Row(
@@ -139,6 +142,7 @@ class _SigninSignupState extends State<SigninSignup> {
                         ],
                       ),
                       const SizedBox(height: 10.0),
+                      // note: 회원가입 폼
                       if (isSignupScreen)
                         Form(
                           key: _formKey,
@@ -209,7 +213,8 @@ class _SigninSignupState extends State<SigninSignup> {
                                   },
                                   validator: (value) {
                                     if (value!.isEmpty || value.length < 6) {
-                                      return 'Please enter a valid password';
+                                      // 6글자 이상의 문자를 입력해주세요
+                                      return 'Please enter a string over six characters';
                                     }
                                     return null;
                                   },
@@ -331,9 +336,9 @@ class _SigninSignupState extends State<SigninSignup> {
                         _tryValidation();
                         try {
                           final newUser = await _authentication.createUserWithEmailAndPassword(email: userEmail, password: userPassword);
-                          print('newUser: $newUser');
+                          // print('newUser: $newUser');
                           // UserCredential(additionalUserInfo: AdditionalUserInfo())
-                          print('newUser.user: ${newUser.user}');
+                          // print('newUser.user: ${newUser.user}');
                           // User(displayName: null, email: test4@email.com, emailVerified: false,  uid: zG9UABAJWYhP9nZ, ...)
                           // Usage: https://firebase.flutter.dev/docs/firestore/usage/
                           FirebaseFirestore.instance.collection('user').doc(newUser.user!.uid).set({'username': userName, 'email': userEmail});
