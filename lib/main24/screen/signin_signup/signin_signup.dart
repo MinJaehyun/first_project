@@ -1,8 +1,10 @@
+import 'package:first_project/main24/screen/chat/chat_screen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:first_project/main24/helper/palette/palette.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SigninSignup extends StatefulWidget {
   const SigninSignup({Key? key}) : super(key: key);
@@ -18,6 +20,7 @@ class _SigninSignupState extends State<SigninSignup> {
   final _authentication = FirebaseAuth.instance;
   String userName = '';
   String userEmail = '';
+  String userId = '';
   String userPassword = '';
 
   void _tryValidation() {
@@ -83,7 +86,14 @@ class _SigninSignupState extends State<SigninSignup> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.5), spreadRadius: 5, blurRadius: 7, offset: const Offset(0, 3))],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.easeIn,
@@ -314,7 +324,7 @@ class _SigninSignupState extends State<SigninSignup> {
             AnimatedPositioned(
               duration: const Duration(milliseconds: 500),
               curve: Curves.easeIn,
-              top: isSignupScreen ? 430 : 375,
+              top: isSignupScreen ? 450 : 395,
               left: 0,
               right: 0,
               child: Center(
@@ -327,8 +337,10 @@ class _SigninSignupState extends State<SigninSignup> {
                     borderRadius: BorderRadius.circular(50),
                     boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.5), spreadRadius: 5, blurRadius: 5, offset: const Offset(0, 3))],
                   ),
+                  // note: isSignupScreen
                   child: GestureDetector(
                     onTap: () async {
+                      FocusScope.of(context).unfocus();
                       if (isSignupScreen) {
                         setState(() {
                           isSpinner = true;
@@ -347,6 +359,11 @@ class _SigninSignupState extends State<SigninSignup> {
                             setState(() {
                               isSpinner = false;
                             });
+                            await GoogleSignIn().signOut();
+                            await FirebaseAuth.instance.signOut().then((result) => {});
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return SigninSignup();
+                            }));
                             if (!mounted) return;
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -364,7 +381,7 @@ class _SigninSignupState extends State<SigninSignup> {
                         }
                       }
 
-                      // login 인 경우
+                      // note: login 인 경우
                       if (!isSignupScreen) {
                         setState(() {
                           isSpinner = true;
@@ -376,6 +393,11 @@ class _SigninSignupState extends State<SigninSignup> {
                             setState(() {
                               isSpinner = false;
                             });
+                            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                              builder: (context) {
+                                return ChatScreen();
+                              },
+                            ), (route) => false);
                             if (!mounted) return;
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -402,7 +424,7 @@ class _SigninSignupState extends State<SigninSignup> {
                           stops: [0.0, 0.25, 0.5, 0.75, 1.0],
                         ),
                       ),
-                      child: const Icon(Icons.arrow_forward, color: Colors.white70),
+                      child: const Icon(Icons.login, color: Colors.white70),
                     ),
                   ),
                 ),
@@ -418,10 +440,16 @@ class _SigninSignupState extends State<SigninSignup> {
                 children: [
                   Text(isSignupScreen ? 'or Signup with' : 'or SignIn with', style: const TextStyle(color: Colors.white, fontSize: 16)),
                   TextButton.icon(
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('테스트 진행중 입니다'), backgroundColor: Colors.blueGrey),
-                      );
+                    onPressed: () async {
+                      // note: 구글 로그인
+                      await signInWithGoogle().then((value) {
+                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                          builder: (context) {
+                            return ChatScreen();
+                          },
+                        ), (route) => false);
+                      });
+                      showSnackBarMsg(context, "$userEmail 로 구글로그인 하셨습니다.");
                     },
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.white,
@@ -437,6 +465,35 @@ class _SigninSignupState extends State<SigninSignup> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  // note: google login
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser != null) {
+      setState(() {
+        userName = googleUser.displayName!;
+        userEmail = googleUser.email;
+        userId = googleUser.id;
+      });
+    }
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  // snack bar msg
+  void showSnackBarMsg(context, String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        backgroundColor: Colors.blue,
       ),
     );
   }
