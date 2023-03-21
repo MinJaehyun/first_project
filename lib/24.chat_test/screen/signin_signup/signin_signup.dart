@@ -1,6 +1,6 @@
-import 'package:first_project/main24/screen/chat/chat_screen.dart';
+import 'package:first_project/24.chat_test/helper/palette/palette.dart';
+import 'package:first_project/24.chat_test/screen/chat/chat_screen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:first_project/main24/helper/palette/palette.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

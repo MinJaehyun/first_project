@@ -1,5 +1,5 @@
-import 'package:first_project/main24/screen/chat/chat_screen.dart';
-import 'package:first_project/main24/screen/signin_signup/signin_signup.dart';
+import 'package:first_project/24.chat_test/screen/chat/chat_screen.dart';
+import 'package:first_project/24.chat_test/screen/signin_signup/signin_signup.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
