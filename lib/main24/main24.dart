@@ -3,10 +3,19 @@ import 'package:first_project/main24/screen/signin_signup/signin_signup.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await dotenv.load(fileName: '.env');
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "${dotenv.env['FIREBASE_APIKEY']}",
+      appId: "com.example.first_project",
+      messagingSenderId: "messagingSenderId",
+      projectId: "chats-app-5b904",
+    ),
+  );
   runApp(const MyApp());
 }
 
