@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:first_project/main24/screen/signin_signup/signin_signup.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -32,13 +34,21 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: null,
         title: const Text('Chat sreen'),
         centerTitle: true,
         actions: [
           IconButton(
             onPressed: () async {
+              await GoogleSignIn().signOut();
               await FirebaseAuth.instance.signOut().then((result) => {});
-              // todo: signOut() 으로 위젯에서 chat_screen 사라지지 않았으면 pop() 처리하기
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SigninSignup();
+                  },
+                ),
+              );
             },
             icon: const Icon(Icons.logout),
           ),
