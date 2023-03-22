@@ -52,24 +52,16 @@ packages:
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
-      name: cloud_firestore_platform_interface
-      sha256: "1fac512fef2bfe84ca7f372defbd9dd8efb108be96854db9023739a5b2aa9977"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.10.1"
-  cloud_firestore_web:
-    dependency: transitive
-    description:
-      name: cloud_firestore_web
-      sha256: "3fd9581c1447b6e8db6d0f19d0140b196a70ecf582bd1f71e7141fe9abf10ddb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.1"
-  collection:
-    dependency: transitive
-    description:
       name: collection
       sha256: cfc915e6923fe5ce6e153b0723c753045de46de1b4d63771530504004a45fae0
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.17.0"
+  cross_file:
+    dependency: transitive
+    description:
+      name: cross_file
+      sha256: f71079978789bc2fe78d79227f1f8cfe195b31bbd8db2399b0d15a4b96fb843b
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
@@ -190,6 +182,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      sha256: "60fc7b78455b94e6de2333d2f95196d32cf5c22f4b0b0520a628804cb463503b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.7"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -283,56 +283,56 @@ packages:
   google_sign_in:
     dependency: "direct main"
     description:
-      name: google_sign_in
-      sha256: "750d08ffb4cd469f13068d15844ffd1d60c7ac1ca3c815918ba4ce4af22a2ddb"
+      name: http
+      sha256: "6aa2946395183537c8b880962d935877325d6a09a2867c3970c05c0fed6ac482"
       url: "https://pub.dev"
     source: hosted
     version: "6.0.2"
   google_sign_in_android:
     dependency: transitive
     description:
-      name: google_sign_in_android
-      sha256: "6a740e8498920ecf5fc2849ae0e4412536d700230bc3169493a1d031fdfe1cca"
+      name: http_parser
+      sha256: "2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b"
       url: "https://pub.dev"
     source: hosted
     version: "6.1.8"
   google_sign_in_ios:
     dependency: transitive
     description:
-      name: google_sign_in_ios
-      sha256: "2e1df687b17f7fddcaf9a0c7f994d0d19b5d41e8ce1d943013befd0a0ae67403"
+      name: image_picker
+      sha256: f98d76672d309c8b7030c323b3394669e122d52b307d2bbd8d06bd70f5b2aabe
       url: "https://pub.dev"
     source: hosted
     version: "5.6.1"
   google_sign_in_platform_interface:
     dependency: transitive
     description:
-      name: google_sign_in_platform_interface
-      sha256: fece762f0d2dd762ebde43ad70662a209ff6ee034111976549c392f7763d9264
+      name: image_picker_android
+      sha256: b1cbfec0f5aef427a18eb573f5445af8c9c568626bf3388553e40c263d3f7368
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
   google_sign_in_web:
     dependency: transitive
     description:
-      name: google_sign_in_web
-      sha256: "9f883b9b525297663510dfbbe8b04d39715aa0abba430851f501b7d1e4b0f465"
+      name: image_picker_for_web
+      sha256: "7d319fb74955ca46d9bf7011497860e3923bb67feebcf068f489311065863899"
       url: "https://pub.dev"
     source: hosted
     version: "0.11.0+2"
   http:
     dependency: "direct main"
     description:
-      name: http
-      sha256: "6aa2946395183537c8b880962d935877325d6a09a2867c3970c05c0fed6ac482"
+      name: image_picker_ios
+      sha256: "39c013200046d14c58b71dc4fa3d00e425fc9c699d589136cd3ca018727c0493"
       url: "https://pub.dev"
     source: hosted
     version: "0.13.5"
   http_parser:
     dependency: transitive
     description:
-      name: http_parser
-      sha256: "2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b"
+      name: image_picker_platform_interface
+      sha256: "7cef2f28f4f2fef99180f636c3d446b4ccbafd6ba0fad2adc9a80c4040f656b8"
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
@@ -340,7 +340,7 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
+      sha256: a3715e3bc90294e971cb7dc063fbf3cd9ee0ebf8604ffeafabd9e6f16abbdbe6
       url: "https://pub.dev"
     source: hosted
     version: "0.18.0"
@@ -468,7 +468,7 @@ packages:
     dependency: transitive
     description:
       name: path_provider_macos
-      sha256: "2a97e7fbb7ae9dcd0dfc1220a78e9ec3e71da691912e617e8715ff2a13086ae8"
+      sha256: cd57cb98a30ce9d12fdd1896d9d3b0517ce689f942de6ccd2708cd39b3d18a7c
       url: "https://pub.dev"
     source: hosted
     version: "2.0.7"
@@ -617,7 +617,7 @@ packages:
     dependency: transitive
     description:
       name: xdg_directories
-      sha256: "11541eedefbcaec9de35aa82650b695297ce668662bbd6e3911a7fabdbde589f"
+      sha256: bd512f03919aac5f1313eb8249f223bacf4927031bf60b02601f81f687689e86
       url: "https://pub.dev"
     source: hosted
     version: "0.2.0+3"
