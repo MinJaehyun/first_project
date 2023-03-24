@@ -347,13 +347,29 @@ class _SigninSignupState extends State<SigninSignup> {
                         });
                         _tryValidation();
                         try {
+                          // note: auth 유저생성
                           final newUser = await _authentication.createUserWithEmailAndPassword(email: userEmail, password: userPassword);
                           // print('newUser: $newUser');
                           // UserCredential(additionalUserInfo: AdditionalUserInfo())
                           // print('newUser.user: ${newUser.user}');
                           // User(displayName: null, email: test4@email.com, emailVerified: false,  uid: zG9UABAJWYhP9nZ, ...)
                           // Usage: https://firebase.flutter.dev/docs/firestore/usage/
-                          FirebaseFirestore.instance.collection('user').doc(newUser.user!.uid).set({'username': userName, 'email': userEmail});
+                          // print('userName: $userName');
+
+                          // note: store 유저정보저장
+                          /** note: new_message 25: userName Null 에러
+                           * 1. signup_signin 에 358: 이 생성되지 않고 있다
+                           *   - 회원 가입해도 firebase store 의 user 에 문서가 없다
+                           * 2. match /user/{uid} {
+                                  allow read, write: if request.auth != null && request.auth.uid == uid;
+                                }
+                           * */
+                          await FirebaseFirestore.instance.collection('user').doc(newUser.user!.uid).set(
+                            {
+                              'username': userName,
+                              'email': userEmail,
+                            },
+                          );
 
                           if (newUser.user != null) {
                             setState(() {
