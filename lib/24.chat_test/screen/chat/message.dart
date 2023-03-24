@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:first_project/24.chat_test/screen/chat/chat_bubble.dart';
 import 'package:flutter/material.dart';
 
 class Message extends StatefulWidget {
@@ -11,6 +13,8 @@ class Message extends StatefulWidget {
 class _MessageState extends State<Message> {
   @override
   Widget build(BuildContext context) {
+    final newUser = FirebaseAuth.instance.currentUser;
+
     return Container(
       child: StreamBuilder(
         // note: orderBy defalut: ascending
@@ -25,15 +29,13 @@ class _MessageState extends State<Message> {
             reverse: true,
             itemCount: docs.length,
             itemBuilder: (BuildContext context, int index) {
-              return Container(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(docs[index]['text'], style: TextStyle(fontSize: 18)),
-                    // Divider(thickness: 3),
-                  ],
-                ),
+              // print("docs[index]['userId']: ${docs[index]['userId'].runtimeType}");
+              return ChatBubbles(
+                docs[index]['text'],
+                // note: required 설정 안 했으므로 순서 주의
+                docs[index]['userId'] == newUser!.uid,
+                docs[index]['userName'],
+                docs[index]['pickedImage'],
               );
             },
           );
