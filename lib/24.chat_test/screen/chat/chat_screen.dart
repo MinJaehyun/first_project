@@ -1,5 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:first_project/24.chat_test/screen/chat/add_image.dart';
 import 'package:first_project/24.chat_test/screen/chat/message.dart';
 import 'package:first_project/24.chat_test/screen/chat/new_message.dart';
 import 'package:first_project/24.chat_test/screen/signin_signup/signin_signup.dart';
@@ -15,6 +16,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   User? loggerUser;
+  File? image;
 
   @override
   void initState() {
@@ -25,18 +27,39 @@ class _ChatScreenState extends State<ChatScreen> {
   void getCurrentUser() {
     try {
       final user = FirebaseAuth.instance.currentUser;
-      // print(user);
       loggerUser = user;
     } catch (e) {
       print(e);
     }
   }
 
+  void changeImage(File image) {
+    image = image;
+  }
+
+  void profilePopup() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          // todo: 하위만들어서 데이터 내려줘서, 자식에서 부모의 함수 실행하여 userImage 변경하여 reload 구현하기
+          child: AddImage(changeImage),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: null,
+        leading: IconButton(
+          onPressed: () {
+            // todo: 1.팝업띄우기, 2.image_picker로 사진찍거나 갤러리에서 가져오기(2가지기능구현하기), 3.
+            profilePopup();
+          },
+          icon: Icon(Icons.account_circle),
+        ),
         title: const Text('Chat sreen'),
         centerTitle: true,
         actions: [

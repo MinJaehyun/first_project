@@ -34,4 +34,17 @@
 4. [] 로그아웃 시, Null check operator used on a null value 에러 발생 (기능 문제는 없다)
    - 화면 오류나는 부분이 없으니 찾기 힘듦
 5. [] signup_signin 페이지 리펙토링 하기
-* [] 직접 firebase 에 접근하여 데이터를 작성하였는데, 코드를 통해 메시지를 생성하기
+6. [] 직접 firebase 에 접근하여 데이터를 작성하였는데, 코드를 통해 메시지를 생성하기
+7. [v] profile 에서 이미지 등록 기능 구현하기
+8. [] 에러 아닌 경고: The following ArgumentError was thrown resolving an image codec
+   - Invalid argument(s): No host specified in URI file:///
+   - add_image.dart 65:
+
+### 전체 구조
+main24
+ㄴ signup_signin: 회원가입 및 로그인 페이지
+ㄴ chat_screen: 전체 채팅 화면
+   ㄴ message: 중단 채팅 화면
+      ㄴ chat_bubble: 중단 채팅글 말풍선 기능
+   ㄴ new_message: 최하단 새로운 채팅 보내기 화면
+   ㄴ add_image: appbar 좌측 profile 화면
