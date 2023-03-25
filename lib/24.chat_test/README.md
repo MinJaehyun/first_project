@@ -8,43 +8,58 @@
 ![](../../assets/main24/firestore.png)
 
 ### 흐름
-흐름:
-1. 회원가입
-2. 일반 로그인
-3. 채팅앱 보여주기 
-4. 로그아웃 후, 구글 로그인 후, 채팅앱 보여주기
+    1. 계정 1. 일반 회원가입 후, 일반 로그인하고 채팅앱 보여주기 
+    2. 계정 2. 구글 로그인하여 채팅앱 보여주기
+    * test 계정: t1@email.com , 123456
 
 ### 화면 구성
-1. Signup 클릭하여 회원가입 성공하면 Login 을 진행할 수 있다
- - 테스트 계정 id: tests@email.com, password: 123456 
-2. Login 에 성공하면 한개의 채팅방에서 서로 채팅을 할 수 있다
- - 단, 유저를 구분하고 있지 않으므로, 누구의 채팅인지 알 수 없는 상태이다 
+    1. signup screen
+    2. login screen
+    3. chat screen
 
 ### 특징
-1. main 에서 StreamBuilder 에서 authStateChanges 으로 토큰유무 체크하고 진행하는게 특징
-2. 회원가입 & 로그인 페이지에서 body: ModalProgressHUD() 설정하는게 특징
-3. 제일 처음으로 돌아가기: Navigator.of(context).popUntil((route) => route.isFirst);
-4. 회원탈퇴: FirebaseAuth.instance.currentUser!.delete();
+    1. main 에서 StreamBuilder 에서 authStateChanges 으로 토큰 유무 체크
+    2. 회원 가입 & 로그인 페이지에서 body: ModalProgressHUD() 설정
+    3. 제일 처음으로 돌아가기: Navigator.of(context).popUntil((route) => route.isFirst);
+    4. 미구현: 회원 탈퇴는 FirebaseAuth.instance.currentUser!.delete();
 
 ### 개선할 점
-1. [v] 버튼 클릭 시, unfocus() 실행하여 소프트 키보드 해제하기
-2. [v] 회원가입의 password 입력창 클릭 시, 소프트키보드에 입력창이 가려지는 현상 수정
+1. [v] 버튼 클릭 시, unfocus()로 소프트 키보드 해제 하기
+2. [v] 회원 가입의 password 입력창 클릭 시, 소프트 키보드에 입력창 가리는 현상
    - padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom * 1)
-3. [v] 구글로그인 구현
-4. [] 로그아웃 시, Null check operator used on a null value 에러 발생 (기능 문제는 없다)
-   - 화면 오류나는 부분이 없으니 찾기 힘듦
-5. [] signup_signin 페이지 리펙토링 하기
-6. [] 직접 firebase 에 접근하여 데이터를 작성하였는데, 코드를 통해 메시지를 생성하기
-7. [v] profile 에서 이미지 등록 기능 구현하기
-8. [] 에러 아닌 경고: The following ArgumentError was thrown resolving an image codec
-   - Invalid argument(s): No host specified in URI file:///
+3. [v] 구글 로그인 구현
+4. [v] 로그 아웃 시, Null check 에러 발생
+   - 오류 메시지 없으니 찾기 힘듦
+5. [] signup_signin 페이지 리펙토링 
+   - 500줄 분리하기
+6. [x] 직접 firebase 에 접근하여 데이터를 작성하였는데, 코드를 통해 메시지를 생성하기
+   - 불 필요한 작업
+7. [v] profile 에서 이미지 등록 구현
+8. [v] 경고: Invalid argument(s): No host specified in URI file:///
    - add_image.dart 65:
+9. [v] ChatBubble() 2개의 코드 한개로 리펙토링
+10. [v] t1 계정의 이미지 등록된 유저가 메시지 보내면 chats/{doc}/message/에 등록 되는데,
+     test19 계정의 이미지 등록 했는지 확인 안 된 유저가 메시지 보내면, 컬랙션 등록 안됨.
+   - 문제: firebase 의 test19 에 username 이 null
+   - 해결: 최근 회원 가입된 user 는 username 적용 되어서 나오므로, 전체 auth 데이터와 firestore 의 chats 이하 모든 메시지 삭제
+11. [] 에러: username 이 4글자 이하로 가입 된다.
+12. [v] 구글 로그인 실패
+   - 해결: keytool 을 firebase 프로젝트에 sha-1 적용
+13. [v] 우선 처리할 것: 2번째 애뮬 레이터에 내가 보낸 메시지가 화면에서 짤린다.
+   - 에러나 경고는 아닌데 화면 제대로 안 나온다.
+   - 원인: chat_bubble.dart 38: if (!widget.isMe) 설정하여 하나의 위젯만 처리 되었다.
+14. [] 말풍선 좌,우 BubbleType 이 변경될 때, 위와 아래 왔다갔다하면 정상 작동한다.
+15. [] google-services.json 에 api_key 비밀키로 변경해야 하지 않나 ? - echo 사용해서 github 에서 secret 키 설정하기
+16. [v] 구글 로그인 후, 메시지 안 보내진다
+   - FirebaseAuth.instance.currentUser 로 firestore 통해서 newUser.uid 가져와서 username 을 적용 했는데,
+     이는 구글 로그인 유저 확인 못하므로
+   - FirebaseAuth.instance.currentUser 통해 displayName 가져와서 구글 로그인 한 유저의 username 에 적용함
 
 ### 전체 구조
-main24
-ㄴ signup_signin: 회원가입 및 로그인 페이지
-ㄴ chat_screen: 전체 채팅 화면
-   ㄴ message: 중단 채팅 화면
-      ㄴ chat_bubble: 중단 채팅글 말풍선 기능
-   ㄴ new_message: 최하단 새로운 채팅 보내기 화면
-   ㄴ add_image: appbar 좌측 profile 화면
+      main24
+      ㄴ signup_signin: 회원가입 및 로그인 페이지
+      ㄴ chat_screen: 전체 채팅 화면
+         ㄴ message: 중단 채팅 화면
+            ㄴ chat_bubble: 중단 채팅글 말풍선 기능
+         ㄴ new_message: 최하단 새로운 채팅 보내기 화면
+         ㄴ add_image: appbar 좌측 profile 화면

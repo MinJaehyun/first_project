@@ -18,18 +18,15 @@ class _NewMessageState extends State<NewMessage> {
   Widget build(BuildContext context) {
     void sendMessage() async {
       FocusScope.of(context).unfocus();
-      // note: users collection 에서 현재 유저id문서에 접근하려면 ??
       var newUser = await FirebaseAuth.instance.currentUser;
-      // print(newUser!.uid);
       var userData = await FirebaseFirestore.instance.collection('user').doc(newUser!.uid).get();
-      print(userData.data());
-      FirebaseFirestore.instance.collection('/chats/pZaVfyO0YlsbF0VMyTLL/messages/').add(
+      await FirebaseFirestore.instance.collection('/chats/pZaVfyO0YlsbF0VMyTLL/messages/').add(
         {
           'text': userMessage,
           'time': DateTime.now(),
           'userId': newUser.uid,
-          'userName': userData.data()!['username'],
-          'pickedImage': userData.data()!['pickedImage'],
+          'userName': userData.data()!['username'] != null ? userData.data()!['username'] : newUser!.displayName,
+          'pickedImage': userData.data()!['pickedImage'] != null ? userData.data()!['pickedImage'] : newUser!.photoURL,
         },
       );
       controller.clear();
@@ -37,13 +34,13 @@ class _NewMessageState extends State<NewMessage> {
 
     return Container(
       padding: EdgeInsets.all(10),
-      margin: EdgeInsets.only(top: 13),
+      margin: EdgeInsets.only(top: 10),
       child: Row(
         children: [
-          // note: TextField위젯을 Expanded위젯으로 감싸지 않으면 불필요한 공간 차지한다
+          // note: TextField 위젯을 Expanded 위젯으로 감싸지 않으면 불 필요한 공간 차지함
           Expanded(
             child: TextField(
-              maxLines: 3,
+              maxLines: 2,
               controller: controller,
               decoration: InputDecoration(
                 hintText: 'Send a message',

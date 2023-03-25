@@ -17,7 +17,7 @@ class _MessageState extends State<Message> {
 
     return Container(
       child: StreamBuilder(
-        // note: orderBy defalut: ascending
+        // note: orderBy default: ascending
         stream: FirebaseFirestore.instance.collection('/chats/pZaVfyO0YlsbF0VMyTLL/messages').orderBy('time', descending: true).snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
