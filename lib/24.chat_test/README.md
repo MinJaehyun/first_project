@@ -14,15 +14,17 @@
 ### firestore + login_google_user
 ![Untitled](https://user-images.githubusercontent.com/43669992/227702901-b2111759-b4d6-47b3-bdb4-53faf8745ba0.png)
 
-### 흐름
-    1. 계정 1. 일반 회원가입 후, 일반 로그인하고 채팅앱 보여주기 
-    2. 계정 2. 구글 로그인하여 채팅앱 보여주기
-    * test 계정: t1@email.com , 123456
-
-### 화면 구성
-    1. signup screen
-    2. login screen
-    3. chat screen
+## 전체 구조
+      main24
+      ㄴ signup_signin: 회원가입 및 로그인 페이지
+      ㄴ chat_screen: 전체 채팅 화면
+         ㄴ new_message: 최하단 새로운 채팅 보내기 화면
+         ㄴ add_image: appbar 좌측 profile 화면
+         ㄴ message: 중단 채팅 화면
+            ㄴ chat_bubble: 중단 채팅글 말풍선 기능
+![Untitled](https://user-images.githubusercontent.com/43669992/227764230-79b7aafd-514b-4354-9fb6-7a0eb3cb1a9d.png)
+![Untitled (1)](https://user-images.githubusercontent.com/43669992/227764235-6d08d273-f254-4cdf-86cf-75958725cdb9.png)
+![Untitled (2)](https://user-images.githubusercontent.com/43669992/227764237-26ddeb5d-50e3-44a4-b1ec-fa530ec4abae.png)
 
 ### 특징
     1. main 에서 StreamBuilder 에서 authStateChanges 으로 토큰 유무 체크
@@ -51,7 +53,8 @@
 11. [x] 우선 처리할 것: 2번째 애뮬 레이터에 내가 보낸 메시지가 화면에서 짤린다.
     1) 에러나 경고는 아닌데 화면 제대로 안 나온다.
     2) 원인: chat_bubble.dart 38: if (!widget.isMe) 설정하여 하나의 위젯만 처리 되었다. 
-12. [x] google-services.json 에 api_key 비밀키로 변경해야 하지 않나 ? - github settings secret 
+12. [x] google-services.json 에 api_key 비밀키로 변경해야 하지 않나 ? 
+    1) github settings secret 
 13. [x] 구글 로그인 후, 메시지 안 보내진다
     1) FirebaseAuth.instance.currentUser 로 firestore 통해서 newUser.uid 가져와서 username 을 적용 했는데,
      이는 구글 로그인 유저 확인 못하므로
@@ -59,12 +62,3 @@
 14. [ ] signup_signin 페이지 리펙토링
     1) 500줄 분리하기
 15. [ ] 말풍선 좌,우 BubbleType 이 변경될 때, 위와 아래 왔다갔다하면 정상 작동한다.
-
-### 전체 구조
-      main24
-      ㄴ signup_signin: 회원가입 및 로그인 페이지
-      ㄴ chat_screen: 전체 채팅 화면
-         ㄴ new_message: 최하단 새로운 채팅 보내기 화면
-         ㄴ add_image: appbar 좌측 profile 화면
-         ㄴ message: 중단 채팅 화면
-            ㄴ chat_bubble: 중단 채팅글 말풍선 기능
