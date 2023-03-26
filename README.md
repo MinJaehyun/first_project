@@ -2,9 +2,6 @@
 <img src="https://user-images.githubusercontent.com/43669992/225688132-de6542b8-6135-4c1b-a583-bc2408ae1f7d.gif" width="200" height="400"/>
 
 # 24. chat_app_test
-### 1차 
-<img src="https://user-images.githubusercontent.com/43669992/226609963-47300358-ede3-40c3-861d-c63c0b56b3f4.gif" width="200" height="400"/>
-
 ### 2차 
     1) 회원가입
 <img src="https://user-images.githubusercontent.com/43669992/227701180-0fe71d53-4008-428c-9ef9-1cdc2426b76e.gif" width="300" height="600"/>
@@ -20,3 +17,15 @@
 
     5) firestore + login_google_user
 ![Untitled](https://user-images.githubusercontent.com/43669992/227702901-b2111759-b4d6-47b3-bdb4-53faf8745ba0.png)
+
+### 전체 구조
+      main24
+      ㄴ signup_signin: 회원가입 및 로그인 페이지
+      ㄴ chat_screen: 전체 채팅 화면
+         ㄴ new_message: 최하단 새로운 채팅 보내기 화면
+         ㄴ add_image: appbar 좌측 profile 화면
+         ㄴ message: 중단 채팅 화면
+            ㄴ chat_bubble: 중단 채팅글 말풍선 기능
+![Untitled](https://user-images.githubusercontent.com/43669992/227764230-79b7aafd-514b-4354-9fb6-7a0eb3cb1a9d.png)
+![Untitled (1)](https://user-images.githubusercontent.com/43669992/227764235-6d08d273-f254-4cdf-86cf-75958725cdb9.png)
+![Untitled (2)](https://user-images.githubusercontent.com/43669992/227764237-26ddeb5d-50e3-44a4-b1ec-fa530ec4abae.png)
