@@ -1,7 +1,7 @@
-import 'package:first_project/main27/provider/fish_model.dart';
-import 'package:first_project/main27/provider/meat_model.dart';
+import 'package:first_project/27.provider/my_page.dart';
+import 'package:first_project/27.provider/provider/fish_model.dart';
+import 'package:first_project/27.provider/provider/meat_model.dart';
 import 'package:flutter/material.dart';
-import '../main27/my_page.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(const MyApp());

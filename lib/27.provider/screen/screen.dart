@@ -1,5 +1,5 @@
-import 'package:first_project/main27/provider/fish_model.dart';
-import 'package:first_project/main27/provider/meat_model.dart';
+import 'package:first_project/27.provider/provider/fish_model.dart';
+import 'package:first_project/27.provider/provider/meat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
