@@ -175,6 +175,7 @@ class _MyPageState extends State<MyPage> {
                               onPressed: () async {
                                 // note: posts collection 내 documentSnapshot 의 id 접근
                                 await FirebaseFirestore.instance.collection('posts').doc(documentSnapshot.id).update({'title': titleController.text, 'body': bodyController.text});
+                                Navigator.of(context).pop();
                               },
                               child: Text('update'),
                               style: OutlinedButton.styleFrom(
