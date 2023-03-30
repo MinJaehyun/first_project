@@ -29,3 +29,6 @@
 ![Untitled](https://user-images.githubusercontent.com/43669992/227764230-79b7aafd-514b-4354-9fb6-7a0eb3cb1a9d.png)
 ![Untitled (1)](https://user-images.githubusercontent.com/43669992/227764235-6d08d273-f254-4cdf-86cf-75958725cdb9.png)
 ![Untitled (2)](https://user-images.githubusercontent.com/43669992/227764237-26ddeb5d-50e3-44a4-b1ec-fa530ec4abae.png)
+
+# 28-1. Firebase + CRUD
+<img src="https://user-images.githubusercontent.com/43669992/228793605-6b0897a0-89c3-4673-9c26-30f23f9f72d1.gif" width="300" height="600"/>
