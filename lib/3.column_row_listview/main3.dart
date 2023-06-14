@@ -60,3 +60,19 @@ class BodyContext extends StatelessWidget {
     );
   }
 }
+
+/* BottomAppBar 사용하여 여백 설정해도 된다.
+
+bottomNavigationBar: BottomAppBar(
+        height: 100,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Icon(Icons.phone),
+            Icon(Icons.message),
+            Icon(Icons.contact_page),
+          ],
+        ),
+        // height: 0,
+      ),
+*/
