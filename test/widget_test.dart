@@ -8,6 +8,7 @@
 // import 'package:first_project/2.sell_camera/main2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+// import 'package:first_project/main2.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
